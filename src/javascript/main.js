@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 function signUpOnClick() {}
 
-function logInOnClick() {
+async function logInOnClick() {
   let emailInput = document.querySelector("#username").value;
   let passwordInput = document.querySelector("#password").value;
   console.log(`email: ${emailInput} password: ${passwordInput}`);
-  let loging_token = logIn("venom@superhero.com", "venom");
-  console.log(loging_token);
-  if (loging_token !== undefined || loging_token !== "") {
+  let loging_result = await logIn(emailInput, passwordInput);
+  console.log(loging_result);
+  if (loging_result.token !== undefined && loging_result.token !== "") {
     document.querySelector("#form").innerHTML = " ";
     let index = emailInput.indexOf("@");
     let profileName = emailInput.slice(0, index);
@@ -20,6 +20,8 @@ function logInOnClick() {
     linkToProfile.href = "#";
     document.querySelector("#header").appendChild(linkToProfile);
     console.log(linkToProfile);
+  } else {
+    alert("Login Error");
   }
   return { token: loging_token };
 }
