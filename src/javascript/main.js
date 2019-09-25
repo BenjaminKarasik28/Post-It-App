@@ -1,8 +1,11 @@
 
     
 document.addEventListener("DOMContentLoaded", function(e) {
-    let loggedInFlag = false
-    loadPosts(loggedInFlag)
+    let token = sessionStorage.getItem('token')
+    console.log(token)
+
+    let loggedInFlag = true
+    loadPosts(token)
     e.preventDefault();
 
     
@@ -42,8 +45,10 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
     
   }
+
+  
    
-function loadPosts (loggedInFlag){
+function loadPosts (token){
     let url  = `http://thesi.generalassemb.ly:8080/post/list`
     getData(url)
     .then(posts =>{
@@ -81,10 +86,10 @@ function loadPosts (loggedInFlag){
             document.querySelector('#main').appendChild(postDesc)
             document.querySelector('#main').appendChild(postUsername)
 
-            if(!loggedInFlag)
+            if(token!==null){
             document.querySelector('#main').appendChild(commentOnAPost)
             
-           
+            }
 
         })
         
