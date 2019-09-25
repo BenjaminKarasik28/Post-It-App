@@ -168,6 +168,33 @@ async function createPost(title, dscrpt) {
   }
 }
 
+async function createComment(postId, commentContent) {
+  // check user token data validation
+  let token = sessionStorage.getItem("token");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/comment/" + postId;
+  let data = {
+    text: commentContent
+  };
+  try {
+    console.log(`create comment request: url(${url})`);
+    var response = await postData(url, data, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("create comment response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("create comment finished");
+  }
+}
+
 //test
 // let test = true;
 // if (test) {
