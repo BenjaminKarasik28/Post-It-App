@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(e) {
   e.preventDefault();
+  listPostsOnLoaded();
   document.querySelector("#login").addEventListener("click", logInOnClick);
+  
 });
 
 function signUpOnClick() {}
@@ -26,6 +28,12 @@ async function logInOnClick() {
   return { token: loging_token };
 }
 
-function listPosts() {
+async function listPostsOnLoaded() {
   // also function as searchPost
+  await listPosts().then((value)=>{
+      console.log(value);
+      for(let i=value.length-1; i>=0; i--){
+          console.log(value[i]);
+      }
+  });
 }

@@ -4,15 +4,19 @@
  * @param  {object} data [data body]
  * @return {object} response.json() [object resolved from response]
  */
-async function postData(url, data) {
+async function postData(url, data, token = "") {
+  var myHeaders = {};
+  myHeaders["Content-Type"] = "application/json";
+  if (token !== "") {
+    console.log("post Data: token is " + token);
+    myHeaders["Authorization"] = token;
+  }
   let response = await fetch(url, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
+    headers: myHeaders,
+    body: JSON.stringify(data),
   });
   return await response.json();
 }
@@ -23,7 +27,14 @@ async function postData(url, data) {
  * @return {object} response.json() [object resolved from response]
  */
 async function getData(url) {
-  let response = await fetch(url);
+  let response = await fetch(url, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   return await response.json();
 }
 
@@ -35,13 +46,13 @@ async function getData(url) {
  * @return {object} object [dictionary having token if signup succeeds]
  */
 async function signUp(email, pwd, username) {
-  if (  email === undefined || typeof email !== "string" || email === "") {
+  if (email === undefined || typeof email !== "string" || email === "") {
     throw "Exception from signUp(): argument 'email' incorrect";
   }
   if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
     throw "Exception from signUp(): argument 'pwd' incorrect";
   }
-  if ( username === undefined || typeof username !== "string" || username === "") {
+  if (username === undefined || typeof username !== "string" || username === "") {
     throw "Exception from signUp(): argument 'username' incorrect";
   }
   try {
@@ -49,7 +60,7 @@ async function signUp(email, pwd, username) {
     let data = {
       email: email,
       password: pwd,
-      username: username
+      username: username,
     };
     console.log(`signup request: url(${url}) data body (${JSON.stringify(data)})`);
     let response = await postData(url, data);
@@ -60,7 +71,7 @@ async function signUp(email, pwd, username) {
       return { token: token };
     } else {
       console.log("signup failed");
-      console.log(response.message)
+      console.log(response.message);
       return {};
     }
   } catch (error) {
@@ -78,17 +89,17 @@ async function signUp(email, pwd, username) {
  * @return {object} object [dictionary having token if login succeeds]
  */
 async function logIn(email, pwd) {
-  if (email === undefined || typeof email !== "string"  || email === "") {
+  if (email === undefined || typeof email !== "string" || email === "") {
     throw "Exception from signUp(): argument 'email' incorrect";
   }
-  if ( pwd === undefined || typeof pwd !== "string" ||  pwd === "") {
+  if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
     throw "Exception from signUp(): argument 'pwd' incorrect";
   }
   try {
     let url = "http://thesi.generalassemb.ly:8080/login";
     let data = {
       email: email,
-      password: pwd
+      password: pwd,
     };
     console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
     let response = await postData(url, data);
@@ -96,10 +107,12 @@ async function logIn(email, pwd) {
     if (response.token !== undefined) {
       let token = response.token;
       console.log(token);
+      sessionStorage.setItem("token", token);
+      console.log("token saved in session storage");
       return { token: token };
     } else {
       console.log("login failed");
-      console.log(response.message)
+      console.log(response.message);
       return {};
     }
   } catch (error) {
@@ -109,10 +122,59 @@ async function logIn(email, pwd) {
   }
 }
 
+async function listPosts() {
+  let url = "http://thesi.generalassemb.ly:8080/post/list";
+  try {
+    console.log(`list post request: url(${url})`);
+    var response = await getData(url).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("list post response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("list posts finished");
+  }
+}
+
+async function createPost(title, dscrpt) {
+  // check user token data validation
+  let token = sessionStorage.getItem("token");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/post";
+  let data = {
+    title: title,
+    description: dscrpt,
+  };
+  try {
+    console.log(`create post request: url(${url})`);
+    var response = await postData(url, data, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("create post response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("list posts finished");
+  }
+}
+
 //test
 // let test = true;
 // if (test) {
 //   let loging_token = logIn("venom@superhero.com", "venom");
 //   console.log(loging_token);
 //   let wrong_login = logIn("venom@superhero.com", "veno")
+
+//   // test authentication
+
 // }
