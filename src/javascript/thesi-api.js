@@ -175,6 +175,7 @@ async function createPost(title, dscrpt) {
 //   console.log(loging_token);
 //   let wrong_login = logIn("venom@superhero.com", "veno")
 
-//   // test authentication
+//   // create post
+//   createPost("hello", "hi");
 
 // }
