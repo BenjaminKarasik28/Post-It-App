@@ -45,12 +45,14 @@ async function signUp(email, pwd, username) {
     throw "Exception from signUp(): argument 'username' incorrect";
   }
   try {
+    let url = "http://thesi.generalassemb.ly:8080/signup";
     let data = {
       email: email,
       password: pwd,
       username: username
     };
-    let response = await postData("http://thesi.generalassemb.ly:8080/signup", data);
+    console.log(`signup request: url(${url}) data body (${JSON.stringify(data)})`);
+    let response = await postData(url, data);
     console.log("signup response:" + JSON.stringify(response));
     if (response.token !== undefined) {
       let token = response.token;
@@ -79,15 +81,17 @@ async function logIn(email, pwd) {
   if (email === undefined || typeof email !== "string"  || email === "") {
     throw "Exception from signUp(): argument 'email' incorrect";
   }
-  if ( pwd === undefined || typeof pwd !== "string" ||  || pwd === "") {
+  if ( pwd === undefined || typeof pwd !== "string" ||  pwd === "") {
     throw "Exception from signUp(): argument 'pwd' incorrect";
   }
   try {
+    let url = "http://thesi.generalassemb.ly:8080/login";
     let data = {
       email: email,
       password: pwd
     };
-    let response = await postData("http://thesi.generalassemb.ly:8080/login", data);
+    console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
+    let response = await postData(url, data);
     console.log("logIn response:" + JSON.stringify(response));
     if (response.token !== undefined) {
       let token = response.token;
