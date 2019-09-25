@@ -177,7 +177,7 @@ async function createComment(postId, commentContent) {
   }
   let url = "http://thesi.generalassemb.ly:8080/comment/" + postId;
   let data = {
-    text: commentContent
+    text: commentContent,
   };
   try {
     console.log(`create comment request: url(${url})`);
@@ -195,6 +195,23 @@ async function createComment(postId, commentContent) {
   }
 }
 
+async function getCommentByPostId(postId) {
+  let url = "http://thesi.generalassemb.ly:8080/post/" + postId + "/comment";
+  try {
+    console.log(`get comment by post id request: url(${url})`);
+    var response = await getData(url).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("get comment by post id response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("get comment by post id finished");
+  }
+}
 //test
 // let test = true;
 // if (test) {
