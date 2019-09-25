@@ -26,14 +26,18 @@ async function postData(url, data, token = "") {
  * @param  {string} url [address for request destination]
  * @return {object} response.json() [object resolved from response]
  */
-async function getData(url) {
+async function getData(url, token = "") {
+  var myHeaders = {};
+  myHeaders["Content-Type"] = "application/json";
+  if (token !== "") {
+    console.log("post Data: token is " + token);
+    myHeaders["Authorization"] = token;
+  }
   let response = await fetch(url, {
     method: "GET",
     mode: "cors",
     cache: "no-cache",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: myHeaders,
   });
   return await response.json();
 }
@@ -212,6 +216,30 @@ async function getCommentByPostId(postId) {
     console.log("get comment by post id finished");
   }
 }
+
+async function getCommentByUser() {
+  let token = sessionStorage.getItem("token");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/user/comment";
+  try {
+    console.log(`get comment by user request: url(${url})`);
+    var response = await getData(url, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("get comment by user response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("get comment by user finished");
+  }
+}
+
 //test
 // let test = true;
 // if (test) {
