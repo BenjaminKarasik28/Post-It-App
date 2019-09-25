@@ -4,16 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/post.css" />
     <title>Post</title>
   </head>
-  <body>
-    <div id="nav-bar">
-      <div id="icon">icon</div>
-      <div id="search">
+  <body class="container">
+    <div class="row" id="nav-bar">
+      <div class="col" id="icon">icon</div>
+      <div class="col" id="search">
         <input id="search-input" />
         <button id="search-submit">search</button>
       </div>
-      <div id="form">
+      <div class="col" id="form">
         <input placeholder="username" />
         <input placeholder="password" />
         <button id="login">LOGIN</button>
@@ -21,11 +33,24 @@
       </div>
     </div>
 
-    <div id="post-creation">
-      Title: <input id="post-title" placeholder="title" /> Content:
-      <input id="post-content" placeholder="Please enter the post content" />
+    <div class="row" id="post-switcher">
+      <div class="col">
+        <button id="post-switcher-view">view</button>
+      </div>
+      <div class="col">
+        <button id="post-switcher-create">create</button>
+      </div>
+    </div>
+    <div class="row" id="post-creation">
+      <p>Title:</p>
+      <input id="post-title" placeholder="title" />
+      <p>Content:</p>
+      <textarea id="post-content" placeholder="Content"></textarea>
       <button id="post-submit">post</button>
     </div>
+    <div class="row" id="post-view">
+        <p> view </p>
+      </div>
   </body>
   <script src="../javascript/thesi-api.js"></script>
   <script src="../javascript/post.js"></script>

@@ -1,0 +1,33 @@
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#icon {
+  top: 20px;
+}
+
+#search {
+  top: 20px;
+}
+
+button#post-switcher-view {
+  width: 100%;
+}
+button#post-switcher-create {
+  width: 100%;
+}
+input#post-title {
+  width: 100%;
+  height: 50px;
+}
+
+textarea#post-content {
+  width: 100%;
+  height: 500px;
+}
+
+button#post-submit {
+  align-items: flex-end;
+}

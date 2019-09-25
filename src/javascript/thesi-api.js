@@ -168,7 +168,7 @@ async function createPost(title, dscrpt) {
   } catch (error) {
     console.log(error);
   } finally {
-    console.log("list posts finished");
+    console.log("create post finished");
   }
 }
 
