@@ -110,9 +110,9 @@ async function logIn(email, pwd) {
 }
 
 //test
-let test = true;
-if (test) {
-  let loging_token = logIn("venom@superhero.com", "venom");
-  console.log(loging_token);
-  let wrong_login = logIn("venom@superhero.com", "veno")
-}
+// let test = true;
+// if (test) {
+//   let loging_token = logIn("venom@superhero.com", "venom");
+//   console.log(loging_token);
+//   let wrong_login = logIn("venom@superhero.com", "veno")
+// }
