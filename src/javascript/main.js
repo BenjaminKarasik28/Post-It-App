@@ -1,17 +1,20 @@
 
 document.addEventListener("DOMContentLoaded", function(e) {
     loadPosts()
+    let logInButton = document.createElement('button')
 
-    let logInButton = document.createElement('input')
-    document.querySelector("#login-info").innerHTML = `<input id = "username" placeholder="email">
-            <input id = "password" type= "password" placeholder="password" >`
+    
 
-    if(!localStorage.getItem("email")) { //replace with token maybe
+    if(!localStorage.getItem("email")) { //replace with token DEFINITELY
         console.log("im here")
         
+        
+        logInButton.textContent = "log in"
+        document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">
+            <input id = "password" type= "password" placeholder="password" >`
         logInButton.type = "submit"
         logInButton.value = "Log in"
-        document.querySelector("#login-info").appendChild(logInButton)
+        document.querySelector("#login").appendChild(logInButton)
     }
     else {
         let userName = localStorage.getItem("email").split("@")[0]
@@ -21,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
         document.querySelector("#login").appendChild(welcomeBack)
     }
 
-    document.querySelector("#login-info").addEventListener('submit', function(e){
-        
+    logInButton.addEventListener('click', function(e){
+      
       loadUser()
         
     })
@@ -32,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 
 function loadUser(){
+
     let emailInput = document.querySelector("#username").value
 
     let passwordInput = document.querySelector("#password").value
@@ -55,12 +59,14 @@ function loadUser(){
         return response.json()
     })
     .then((json) => {
-        console.log(json)
+        // console.log(json)
         let token = json.token
         console.log(token)
         localStorage.setItem("email", emailInput)
-        localStorage.setItem("password", passwordInput)
-        //localStorage.setItem("token")
+        // localStorage.setItem("password", passwordInput)
+        localStorage.setItem("sessionToken", token)
+        loadPosts()
+        
         
     })
     .catch(error =>{
