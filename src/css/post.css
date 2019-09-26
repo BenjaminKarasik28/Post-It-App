@@ -26,6 +26,14 @@ body {
 #form-logined {
   top: 20px;
   text-align: center;
+  display: inline;
+}
+
+button#logined-username{
+  background-color: white;
+  border-radius: 20px;
+  font-size: 20px;
+  text-align: center;
 }
 
 button#search-submit {
@@ -158,3 +166,4 @@ button#post-delete {
   background-color: red;
   border-radius: 20px;
 }
+
