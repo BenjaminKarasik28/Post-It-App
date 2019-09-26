@@ -18,13 +18,17 @@ document.addEventListener("DOMContentLoaded", function(e) {
 });
 
 // TODO: test
-function createCommentOnClick() {
+async function createCommentOnClick() {
   try {
     let meta = document.getElementById("post-view-meta").innerText;
     let postid = meta.split(" ")[2]; // post id: id ==> id
     let comment = document.querySelector("#comment-content").value;
     console.log(postid, comment);
-    createComment(postid, comment);
+    await createComment(postid, comment);
+    document.getElementById("comment-content").value = "";
+    let newP = document.createElement("p");
+    newP.innerText = comment;
+    document.getElementById("post-view-comments").children[0].appendChild(newP);
   } catch (err) {
     console.log(err);
   }
@@ -48,14 +52,14 @@ function switchToViewAPost(e) {
   let divComment = document.createElement("div");
   let commentForId = getCommentByPostId(id).then(response => {
     console.log(response);
-    console.log(divComment)
+    console.log(divComment);
     for (let i = 0; i < response.length; i++) {
       // withdraw data
       let dataI = response[i];
       let commentId = dataI.id;
       let comment = dataI.text;
       let author = dataI.user.username;
-      console.log(comment)
+      console.log(comment);
       // put in html
       let newComment = document.createElement("p");
       newComment.innerText = comment;
@@ -64,10 +68,7 @@ function switchToViewAPost(e) {
       divComment.appendChild(newComment);
     }
   });
-  document.getElementById("post-view-comments").appendChild(divComment)
-
-  console.log(this);
-  // let divComments =
+  document.getElementById("post-view-comments").appendChild(divComment);
 }
 
 async function switchToViewPosts() {
