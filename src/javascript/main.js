@@ -5,8 +5,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
     
 
-    if(!localStorage.getItem("email")) { //replace with token DEFINITELY
+    if(localStorage.getItem("sessionToken")=== null || localStorage.getItem("sessionToken")=== ''  ) { //replace with token DEFINITELY
         console.log("im here")
+        console.log(typeof(localStorage.getItem("sessionToken")))
         
         
         logInButton.textContent = "log in"
@@ -61,11 +62,11 @@ function loadUser(){
     .then((json) => {
         // console.log(json)
         let token = json.token
+        
         console.log(token)
         localStorage.setItem("email", emailInput)
-        // localStorage.setItem("password", passwordInput)
         localStorage.setItem("sessionToken", token)
-        loadPosts()
+        //document.reload()
         
         
     })
@@ -98,6 +99,8 @@ function loadPosts(){
             document.querySelector('#main').appendChild(postTitle)
             document.querySelector('#main').appendChild(postDesc)
             document.querySelector('#main').appendChild(postUsername)
+
+
         })
     })
 }
@@ -105,28 +108,7 @@ function loadPosts(){
 
     
 
-//ion loadPosts (token){
-//     let url  = `http://thesi.generalassemb.ly:8080/post/list`
-//     getData(url)
-//     .then(posts =>{
-        
-//         posts.forEach((post) => {
 
-//             let title = `Title: ${post.title}`
-//             let postTitle = document.createElement('h1')
-//             postTitle.textContent = title
-
-
-//             let desc = post.description
-//             let postDesc = document.createElement('p')
-//             postDesc.textContent = desc
-
-//             let username = ` by: ${post.user.username}`
-//             console.log(username)
-//             let postUsername = document.createElement('p')
-//             postUsername.textContent = username
-            
-            
 
 //             let commentOnAPost = document.createElement('button') 
             
