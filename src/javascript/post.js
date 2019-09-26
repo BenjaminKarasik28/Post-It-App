@@ -28,16 +28,19 @@ function createCommentOnClick() {
   }
 }
 function switchToViewAPost(e) {
-  alert("switchToViewAPost");
+  // alert("switchToViewAPost");
   document.getElementById("post-creation").style.display = "none";
   document.getElementById("posts-list").style.display = "none";
   document.getElementById("post-view").style.display = "block";
+  console.log(this);
   //stopPropogation
-  let divOnePostView = document.getElementById("list-post");
-  let title = document.getElementById("list-post").children[0].innerText; //h3#list-post-title
-  let content = document.getElementById("list-post").children[1].innerText; //p#list-post-content
-  let meta = document.getElementById("list-post").children[2].innerText; //p#list-post-meta
-  console.log(title);
+  let divOnePostView = this.children;
+  let title = divOnePostView[0].innerText; //h3#list-post-title
+  let content = divOnePostView[1].innerText; //p#list-post-content
+  let meta = divOnePostView[2].innerText; //p#list-post-meta
+  document.getElementById("post-view-title").innerText = title;
+  document.getElementById("post-view-content").innerText = content;
+  document.getElementById("post-view-meta").innerText = meta;
 }
 
 async function switchToViewPosts() {
@@ -63,7 +66,7 @@ function displayUserPosts(data) {
     let content = newItem.description;
     let meta = newItem.id;
     // construct to html
-    let newDiv = document.createElement("div")
+    let newDiv = document.createElement("div");
     newDiv.setAttribute("id", "list-post");
     let newTitle = document.createElement("h3");
     newTitle.setAttribute("id", "list-post-title");
