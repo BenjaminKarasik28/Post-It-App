@@ -62,13 +62,14 @@ function loadUser(){
         
         let token = json.token
         let username = json.username
-        console.log(username)
+        console.log('IM HERE')
+        
         if(token!==undefined){
             console.log(token)
             localStorage.setItem("email", emailInput)
             localStorage.setItem("sessionToken", token)
             localStorage.setItem("username", username)
-            //location.reload();
+            location.reload();
         }
         else{
             let loginError = document.createElement('p')
@@ -112,10 +113,9 @@ function loadPosts(){
 
                 let commentButton = document.createElement('button')
                 let div = document.createElement('div')
-                div.className = "posts-div"
+                div.setAttribute("class", "posts-div") 
                 document.querySelector('#main').appendChild(div)
                 
-            
             
                 let title = `Title: ${post.title}`
                 let postTitle = document.createElement('h1')
@@ -130,21 +130,33 @@ function loadPosts(){
                 postUsername.textContent = username
 
 
-                document.querySelector('#main').appendChild(postTitle)
-                document.querySelector('#main').appendChild(postDesc)
-                document.querySelector('#main').appendChild(postUsername)
+                div.appendChild(postTitle)
+                div.appendChild(postDesc)
+                div.appendChild(postUsername)
+                
+
+
+
+
+
+
+
+
+
+
                 
                 if(localStorage.getItem("sessionToken") !==null){
                     
                     commentButton.innerHTML = "Add a comment"
-                    document.querySelector('#main').appendChild(commentButton)
+                    div.appendChild(commentButton)
                 }
-
+                let commentDiv = document.createElement("div")
+                let commentInput = document.createElement("input")
+                let newCommentAdd = document.createElement("button")
+                
                 commentButton.addEventListener('click', ()=>{
                     
-                    let commentDiv = document.createElement("div")
-                    let commentInput = document.createElement("input")
-                    let newCommentAdd = document.createElement("button")
+                  
                     
                     newCommentAdd.innerHTML = "Post Comment"
                     commentInput.setAttribute("type", "text")
@@ -152,14 +164,12 @@ function loadPosts(){
                     postUsername.appendChild(commentInput)
                     postUsername.appendChild(newCommentAdd)
                     commentButton.style.display = "none"
-
-
                 })
-
+                newCommentAdd.addEventListener('click', () =>{
+                    console.log('we made it')
+                })
             
             })
-        
-       
     })
 }
    
