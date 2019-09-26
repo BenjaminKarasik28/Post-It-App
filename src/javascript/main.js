@@ -1,97 +1,109 @@
 
-    
 document.addEventListener("DOMContentLoaded", function(e) {
-    let token = sessionStorage.getItem('token')
-    console.log(token)
-
-    let loggedInFlag = true
-    loadPosts(token)
-    e.preventDefault();
+    loadPosts()
+    let logInButton = document.createElement('button')
 
     
-    
-    document.querySelector("#login").addEventListener("click", function(e){
-        if(logInOnClick()){
-            console.log('YEAHAHAHAHAH')
-        }
-    });
-  });
-  
-  function signUpOnClick() {}
-  
-  function loadButtonsOnLogin(){
 
-  }
-
-
-  function logInOnClick() {
-    let emailInput = document.querySelector("#username").value;
-    let passwordInput = document.querySelector("#password").value;
-    console.log(`email: ${emailInput} password: ${passwordInput}`);
-    let loggin_token = logIn("venom@superhero.com", "venom");
-    console.log(loggin_token);
-    if (loggin_token) {
-      document.querySelector("#form").innerHTML = " ";
-      let index = emailInput.indexOf("@");
-      let profileName = emailInput.slice(0, index);
-      let linkToProfile = document.createElement("a");
-      linkToProfile.innerHTML = profileName;
-      linkToProfile.href = "#";
-      document.querySelector("#header").appendChild(linkToProfile);
-      console.log(linkToProfile);
-      return true
-    }
-    else return false
-
-    
-  }
-
-  
-   
-function loadPosts (token){
-    let url  = `http://thesi.generalassemb.ly:8080/post/list`
-    getData(url)
-    .then(posts =>{
+    if(!localStorage.getItem("sessionToken") ) { //replace with token DEFINITELY
+        console.log("im here")
+        console.log(typeof(localStorage.getItem("sessionToken")))
         
-        posts.forEach((post) => {
+        
+        logInButton.textContent = "log in"
+        document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">
+            <input id = "password" type= "password" placeholder="password" >`
+        logInButton.type = "submit"
+        logInButton.value = "Log in"
+        document.querySelector("#login").appendChild(logInButton)
+    }
+    else {
+        let userName = localStorage.getItem("email").split("@")[0]
+        let helloUsername = `Welcome back, ${userName}`
+        let welcomeBack = document.createElement("p")
+        welcomeBack.textContent = helloUsername
+        document.querySelector("#login").appendChild(welcomeBack)
+    }
 
+    logInButton.addEventListener('click', function(e){
+      
+      loadUser()
+        
+    })
+   
+})
+
+
+
+function loadUser(){
+
+    let emailInput = document.querySelector("#username").value
+
+    let passwordInput = document.querySelector("#password").value
+
+    console.log(emailInput)
+    console.log(passwordInput)
+
+    fetch("http://thesi.generalassemb.ly:8080/login", {
+        method : "post",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+        email: emailInput,
+        password : passwordInput
+    })
+
+    })
+    .then(response => {
+        return response.json()
+    })
+    .then((json) => {
+        // console.log(json)
+        let token = json.token
+        
+        console.log(token)
+        localStorage.setItem("email", emailInput)
+        localStorage.setItem("sessionToken", token)
+        //document.reload()
+        
+        
+    })
+    .catch(error =>{
+        alert(error)
+    })
+
+}
+function loadPosts(){
+    fetch("http://thesi.generalassemb.ly:8080/post/list", {
+        method: "GET"
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then(posts =>{
+        posts.forEach((post)=>{
             let title = `Title: ${post.title}`
             let postTitle = document.createElement('h1')
             postTitle.textContent = title
-
 
             let desc = post.description
             let postDesc = document.createElement('p')
             postDesc.textContent = desc
 
             let username = ` by: ${post.user.username}`
-            console.log(username)
             let postUsername = document.createElement('p')
             postUsername.textContent = username
-            
-            
 
-            let commentOnAPost = document.createElement('button') 
-            
-                console.log('IM HERE')
-                let addComment = "add a comment"
-                
-                commentOnAPost.textContent = addComment
-               
-            
-
-        
-            
             document.querySelector('#main').appendChild(postTitle)
             document.querySelector('#main').appendChild(postDesc)
             document.querySelector('#main').appendChild(postUsername)
 
-            if(token!==null){
-            document.querySelector('#main').appendChild(commentOnAPost)
-            
-            }
 
         })
-        
     })
 }
+   
+
+    
