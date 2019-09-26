@@ -359,6 +359,13 @@ async function updateProfile(mobile){
   }
 }
 
+function checkTokenAvailable() {
+  if (localStorage.getItem("sessionToken") === null) {
+    return false;
+  }
+  return true;
+}
+
 
 //test
 // let test = true;
