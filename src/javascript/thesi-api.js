@@ -53,7 +53,7 @@ async function deleteData(url, token = "") {
     method: "DELETE",
     mode: "cors",
     cache: "no-cache",
-    headers: myHeaders
+    headers: myHeaders,
   });
   return await response.json();
 }
@@ -98,68 +98,6 @@ async function signUp(email, pwd, username) {
     console.log(error);
   } finally {
     console.log("signup finished");
-  }
-}
-
-/**
- * log in functionality to post request with email, password and receive token if succeeded
- * @param  {string} email [email for account]
- * @param  {string} pwd [password for account]
- * @param  {string} username [username for account]
- * @return {object} object [dictionary having token if login succeeds]
- */
-async function logIn(email, pwd) {
-  if (email === undefined || typeof email !== "string" || email === "") {
-    throw "Exception from signUp(): argument 'email' incorrect";
-  }
-  if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
-    throw "Exception from signUp(): argument 'pwd' incorrect";
-  }
-  try {
-    let url = "http://thesi.generalassemb.ly:8080/login";
-    let data = {
-      email: email,
-      password: pwd,
-    };
-    console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
-    let response = await postData(url, data);
-    console.log("logIn response:" + JSON.stringify(response));
-    if (response.token !== undefined) {
-      let username = response.username;
-      let token = response.token;
-      console.log(username);
-      console.log(token);
-      sessionStorage.setItem("username", username);
-      sessionStorage.setItem("token", token);
-      console.log("username and token saved in session storage");
-      return { token: token };
-    } else {
-      console.log("login failed");
-      console.log(response.message);
-      return {};
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    console.log("login finished");
-  }
-}
-
-async function listPosts() {
-  let url = "http://thesi.generalassemb.ly:8080/post/list";
-  try {
-    console.log(`list post request: url(${url})`);
-    var response = await getData(url).then(value => {
-      console.log(value);
-      console.log(typeof value);
-      return value;
-    });
-    console.log("list post response:" + JSON.stringify(response));
-    return response;
-  } catch (error) {
-    console.log(error);
-  } finally {
-    console.log("list posts finished");
   }
 }
 
