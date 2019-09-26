@@ -20,9 +20,11 @@ document.addEventListener("DOMContentLoaded", function(e) {
 // TODO: test
 function createCommentOnClick() {
   try {
+    let meta = document.getElementById("post-view-meta").innerText;
+    let postid = meta.split(" ")[2]; // post id: id ==> id
     let comment = document.querySelector("#comment-content").value;
-    console.log(comment);
-    createComment(comment);
+    console.log(postid, comment);
+    createComment(postid, comment);
   } catch (err) {
     console.log(err);
   }
@@ -41,6 +43,10 @@ function switchToViewAPost(e) {
   document.getElementById("post-view-title").innerText = title;
   document.getElementById("post-view-content").innerText = content;
   document.getElementById("post-view-meta").innerText = meta;
+
+  let id = meta;
+  document.getElementById("post-view-comments").innerHTML = "";
+  console.log(getCommentByPostId(id));
 }
 
 async function switchToViewPosts() {
