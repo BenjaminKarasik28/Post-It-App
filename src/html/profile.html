@@ -45,15 +45,44 @@
 
     <div clss="row" id="profile-form">
       <div id="profile-display">
-          <p>profile-display</p>
-      </div>
-      <div id="profile-manage">
-          <p>profile-manage</p>
-      </div>
+        <table style="width:100%">
+          <tr>
+            <th>Username:</th>
+            <td>profile-username</td>
+          </tr>
+          <tr>
+            <th>Additional Email:</th>
+            <td>profile-add-email</td>
+          </tr>
+          <tr>
+            <th>Mobile:</th>
+            <td>profile-mobile</td>
+          </tr>
+          <tr>
+            <th>Address:</th>
+            <td>profile-address</td>
+          </tr>
+        </table>
 
-      
+        <button id="profile-edit-button">edit profile</button>
+      </div>
+      <div id="profile-editor">
+        <table style="width:100%">
+          <tr>
+            <th>Additional Email:</th>
+            <td><input placeholder="additional email"></td>
+          </tr>
+          <tr>
+            <th>Mobile:</th>
+            <td><input placeholder="mobile"></td>
+          </tr>
+          <tr>
+            <th>Address:</th>
+            <td><input placeholder="address"></td>
+          </tr>
+        </table>
+      </div>
     </div>
-
   </body>
   <script src="../javascript/thesi-api.js"></script>
   <script src="../javascript/profile.js"></script>
