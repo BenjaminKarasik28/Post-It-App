@@ -109,10 +109,13 @@ async function logIn(email, pwd) {
     let response = await postData(url, data);
     console.log("logIn response:" + JSON.stringify(response));
     if (response.token !== undefined) {
+      let username = response.username;
       let token = response.token;
+      console.log(username);
       console.log(token);
+      sessionStorage.setItem("username", username);
       sessionStorage.setItem("token", token);
-      console.log("token saved in session storage");
+      console.log("username and token saved in session storage");
       return { token: token };
     } else {
       console.log("login failed");

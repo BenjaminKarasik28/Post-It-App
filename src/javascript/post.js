@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(e) {
   e.preventDefault();
   let tokenAvailable = checkTokenAvailable();
+  if(tokenAvailable){
+    document.getElementById("form-to-login").style.display = "none";
+    document.getElementById("logined-username").innerText = sessionStorage.getItem("username");
+  }else{
+    document.getElementById("form-logined").style.display = "none";
+  }
   console.log(`token availability: ${tokenAvailable}`);
   document.getElementById("post-switcher-view-posts").addEventListener("click", switchToViewPosts);
   document.getElementById("post-switcher-create").addEventListener("click", switchToCreatePost);
@@ -39,9 +45,17 @@ async function switchToViewPosts() {
   document.getElementById("posts-list").style.display = "block";
   document.getElementById("post-view").style.display = "none";
   let userPosts = await listPosts().then(response => {
-    console.log(response);
+    displayUserPosts(response);
   });
 }
+function displayUserPosts(data) {
+  let username = sessionStorage.getItem("username");
+  // let filteredData = data.filter(item => item.user.username === );
+  for (let i = 0; i < data.length; i++) {
+    console.log(data[i]);
+  }
+}
+
 function switchToCreatePost() {
   document.getElementById("post-creation").style.display = "block";
   document.getElementById("posts-list").style.display = "none";

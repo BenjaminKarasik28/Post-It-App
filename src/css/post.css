@@ -4,6 +4,9 @@ body {
   height: 100vh;
 }
 
+#nav-bar{
+  height: 100px;
+}
 #icon {
   top: 20px;
 }
@@ -11,6 +14,7 @@ body {
 #search {
   top: 20px;
 }
+
 
 button#post-switcher-view-posts {
   width: 100%;
