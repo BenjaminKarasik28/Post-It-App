@@ -48,14 +48,30 @@
       <textarea id="post-content" placeholder="Content"></textarea>
       <button id="post-submit">post</button>
     </div>
-    <div class="row" id="posts-view">
-      <div id="a-post">
-        <h3 id="a-post-title">Title</h3>
-        <p id="a-post-content">content</p>
-        <p id="a-post-meta">user id xxx</p>
+    <div class="row" id="posts-list">
+      <div id="list-post">
+        <h3 id="list-post-title">Title</h3>
+        <p id="list-post-content">content</p>
+        <p id="list-post-meta">user id xxx</p>
+        <div id="list-post-comments">
+          <p>comment 1</p>
+          <p>comment 2</p>
+        </div>
       </div>
     </div>
-    <div class="row" id="one-post-view"></div>
+    <div class="row" id="post-view">
+      <div>
+          <p id="post-view-title">title</p>
+        <p id="post-view-content">content</p>
+        <p id="post-view-meta">meta</p>
+        <div id="post-view-comments">
+          <p>comment 1</p>
+          <p>comment 2</p>
+        </div>
+        <textarea></textarea>
+        <button id="comment-submit">comment</button>
+      </div>
+    </div>
   </body>
   <script src="../javascript/thesi-api.js"></script>
   <script src="../javascript/post.js"></script>

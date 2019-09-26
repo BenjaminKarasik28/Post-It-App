@@ -5,37 +5,37 @@ document.addEventListener("DOMContentLoaded", function(e) {
   document.getElementById("post-switcher-view-posts").addEventListener("click", switchToViewPosts);
   document.getElementById("post-switcher-create").addEventListener("click", switchToCreatePost);
   document.getElementById("post-submit").addEventListener("click", createPostOnClick);
+  document.getElementById("comment-submit")
 
   // add to every post
-  document.getElementById("a-post").addEventListener("click", switchToViewAPost);
+  document.getElementById("list-post").addEventListener("click", switchToViewAPost);
 });
 
 function switchToViewAPost(e) {
   alert("switchToViewAPost");
   document.getElementById("post-creation").style.display = "none";
-  document.getElementById("posts-view").style.display = "none";
-  document.getElementById("one-post-view").style.display = "block";
+  document.getElementById("posts-list").style.display = "none";
+  document.getElementById("post-view").style.display = "block";
   //stopPropogation
-  let divOnePostView = document.getElementById("one-post-view");
-  let title = document.getElementById("a-post").children[0].innerText; //h3#a-post-title
-  let content = document.getElementById("a-post").children[1].innerText; //p#a-post-content
-  let meta = document.getElementById("a-post").children[2].innerText; //p#a-post-meta
-  divOnePostView.innerHTML = "<h1>" + title + "</h1>" + "<p>" + content + "</p>" + "<p>" + meta + "</p>";
-
+  let divOnePostView = document.getElementById("list-post");
+  let title = document.getElementById("list-post").children[0].innerText; //h3#list-post-title
+  let content = document.getElementById("list-post").children[1].innerText; //p#list-post-content
+  let meta = document.getElementById("list-post").children[2].innerText; //p#list-post-meta
+  console.log(title);
 }
 
 async function switchToViewPosts() {
   document.getElementById("post-creation").style.display = "none";
-  document.getElementById("posts-view").style.display = "block";
-  document.getElementById("one-post-view").style.display = "none";
+  document.getElementById("posts-list").style.display = "block";
+  document.getElementById("post-view").style.display = "none";
   let userPosts = await listPosts().then(response => {
     console.log(response);
   });
 }
 function switchToCreatePost() {
   document.getElementById("post-creation").style.display = "block";
-  document.getElementById("posts-view").style.display = "none";
-  document.getElementById("one-post-view").style.display = "none";
+  document.getElementById("posts-list").style.display = "none";
+  document.getElementById("post-view").style.display = "none";
 }
 
 function checkTokenAvailable() {
