@@ -5,12 +5,22 @@ document.addEventListener("DOMContentLoaded", function(e) {
   document.getElementById("post-switcher-view-posts").addEventListener("click", switchToViewPosts);
   document.getElementById("post-switcher-create").addEventListener("click", switchToCreatePost);
   document.getElementById("post-submit").addEventListener("click", createPostOnClick);
-  document.getElementById("comment-submit")
+  document.getElementById("comment-submit").addEventListener("click", createCommentOnClick);
 
   // add to every post
   document.getElementById("list-post").addEventListener("click", switchToViewAPost);
 });
 
+// TODO: test
+function createCommentOnClick() {
+  try {
+    let comment = document.querySelector("#comment-content").value;
+    console.log(comment);
+    createComment(comment);
+  } catch (err) {
+    console.log(err);
+  }
+}
 function switchToViewAPost(e) {
   alert("switchToViewAPost");
   document.getElementById("post-creation").style.display = "none";
