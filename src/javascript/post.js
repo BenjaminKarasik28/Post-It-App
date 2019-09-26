@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(e) {
   e.preventDefault();
   let tokenAvailable = checkTokenAvailable();
+  if (tokenAvailable) {
+    document.getElementById("form-to-login").style.display = "none";
+    document.getElementById("logined-username").innerText = sessionStorage.getItem("username");
+  } else {
+    document.getElementById("form-logined").style.display = "none";
+  }
   console.log(`token availability: ${tokenAvailable}`);
   document.getElementById("post-switcher-view-posts").addEventListener("click", switchToViewPosts);
   document.getElementById("post-switcher-create").addEventListener("click", switchToCreatePost);
@@ -44,9 +50,33 @@ async function switchToViewPosts() {
 }
 function displayUserPosts(data) {
   let username = sessionStorage.getItem("username");
-  let filteredData = data.filter(item => item.user.username === );
-  for (let i = 0; i < data.length; i++) {
-    console.log(data[i]);
+  console.log(username);
+  console.log(data);
+  let filteredData = data.filter(data => data.user.username === username);
+
+  let targetElement = document.getElementById("posts-list");
+  targetElement.innerHTML = "";
+  for (let i = 0; i < filteredData.length; i++) {
+    let newItem = filteredData[i];
+    let title = newItem.title;
+    let content = newItem.description;
+    let meta = newItem.id;
+
+    let newDiv = document.createElement("div")
+    newDiv.setAttribute("id", "list-post");
+    let newTitle = document.createElement("h3");
+    newTitle.setAttribute("id", "list-post-title");
+    newTitle.innerText = title;
+    let newContent = document.createElement("p");
+    newContent.setAttribute("id", "list-post-content");
+    newContent.innerText = content;
+    let newMeta = document.createElement("p");
+    newMeta.setAttribute("id", "list-post-meta");
+    newMeta.innerText = "post id: " + meta;
+    newDiv.appendChild(newTitle);
+    newDiv.appendChild(newContent);
+    newDiv.appendChild(newMeta);
+    targetElement.appendChild(newDiv);
   }
 }
 
