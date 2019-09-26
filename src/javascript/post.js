@@ -1,52 +1,133 @@
 document.addEventListener("DOMContentLoaded", function(e) {
   e.preventDefault();
   let tokenAvailable = checkTokenAvailable();
+  console.log(`token availability: ${tokenAvailable}`);
   if (tokenAvailable) {
     document.getElementById("form-to-login").style.display = "none";
     document.getElementById("logined-username").innerText = sessionStorage.getItem("username");
+    document.getElementById("err-msg").style.display = "none";
   } else {
     document.getElementById("form-logined").style.display = "none";
+    document.getElementById("post-switcher").style.display = "none";
+    document.getElementById("post-creation").style.display = "none";
+    document.getElementById("posts-list").style.display = "none";
+    document.getElementById("post-view").style.display = "none";
+    document.getElementById("err-msg").style.display = "block";
+    return;
   }
-  console.log(`token availability: ${tokenAvailable}`);
+
+  // set up default view
+  switchToViewPosts();
+  document.getElementById("post-creation").style.display = "none";
+  document.getElementById("posts-list").style.display = "block";
+  document.getElementById("post-view").style.display = "none";
+
+  // add listeners
   document.getElementById("post-switcher-view-posts").addEventListener("click", switchToViewPosts);
   document.getElementById("post-switcher-create").addEventListener("click", switchToCreatePost);
   document.getElementById("post-submit").addEventListener("click", createPostOnClick);
   document.getElementById("comment-submit").addEventListener("click", createCommentOnClick);
-
+  document.getElementById("post-delete").addEventListener("click", deletePostButtonOnClick);
   // add to every post
-  document.getElementById("list-post").addEventListener("click", switchToViewAPost);
+  // document.getElementById("list-post").addEventListener("click", switchToViewAPost);
 });
 
-// TODO: test
-function createCommentOnClick() {
+async function createCommentOnClick() {
   try {
+    let meta = document.getElementById("post-view-meta").innerText;
+    let postid = meta.split(" ")[2]; // post id: id ==> id
     let comment = document.querySelector("#comment-content").value;
-    console.log(comment);
-    createComment(comment);
+    console.log(postid, comment);
+    document.getElementById("comment-content").value = "";
+
+    let commentId = 0;
+    let author = "";
+    await createComment(postid, comment).then(response => {
+      console.log(response);
+      commentId = response.id;
+      author = response.user.username;
+    });
+    // put in html
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML =
+      "<div id='one-comment'>" +
+      "<p id='one-comment-content'>" +
+      comment +
+      "</p><p id='one-comment-meta'>comment id: " +
+      commentId +
+      " by " +
+      author +
+      "</p><button id='delete-comment' style='display: none;'>DELETE</button></div>";
+    document.getElementById("post-view-comments").append(newDiv);
   } catch (err) {
     console.log(err);
   }
 }
-function switchToViewAPost(e) {
-  alert("switchToViewAPost");
+function switchToViewAPost(data) {
+  //stopPropogation
+  // display post
+
+  var divOnePostView = this.children;
+  var title = divOnePostView[0].innerText; //h3#list-post-title
+  var content = divOnePostView[1].innerText; //p#list-post-content
+  let meta = divOnePostView[2].innerText; //p#list-post-meta
+
+  document.getElementById("post-view-title").innerText = title;
+  document.getElementById("post-view-content").innerText = content;
+  document.getElementById("post-view-meta").innerText = meta;
+  // display comment
+  let id = meta.split(" ")[2]; // post id: {id} ==> {id}
+  document.getElementById("post-view-comments").innerHTML = "";
+  let divComment = document.createElement("div");
+  let commentForId = getCommentByPostId(id).then(response => {
+    console.log(response);
+    console.log(divComment);
+    for (let i = 0; i < response.length; i++) {
+      // withdraw data
+      let dataI = response[i];
+      let commentId = dataI.id;
+      let comment = dataI.text;
+      let author = dataI.user.username;
+      console.log(comment);
+      // put in html
+      let newDiv = document.createElement("div");
+      newDiv.setAttribute("id", "one-comment");
+      let newComment = document.createElement("p");
+      newComment.innerText = comment;
+      newComment.setAttribute("id", "one-comment-content");
+      let newMeta = document.createElement("p");
+      newMeta.innerText = "comment id: " + commentId + " " + "by " + author;
+      newMeta.setAttribute("id", "one-comment-meta");
+      let newDeleteButton = document.createElement("button");
+      newDeleteButton.setAttribute("id", "delete-comment");
+      newDeleteButton.innerText = "DELETE";
+      newDeleteButton.style.display = "none";
+      newDeleteButton.addEventListener("click", deleteCommentButtonOnClick);
+      newDiv.appendChild(newComment);
+      newDiv.appendChild(newMeta);
+      newDiv.appendChild(newDeleteButton);
+      newDiv.addEventListener("mouseenter", function() {
+        newDiv.querySelector('button[id="delete-comment"]').style.display = "block";
+      });
+      newDiv.addEventListener("mouseleave", function() {
+        newDiv.querySelector('button[id="delete-comment"]').style.display = "none";
+      });
+      document.getElementById("post-view-comments").appendChild(newDiv);
+    }
+  });
+
   document.getElementById("post-creation").style.display = "none";
   document.getElementById("posts-list").style.display = "none";
   document.getElementById("post-view").style.display = "block";
-  //stopPropogation
-  let divOnePostView = document.getElementById("list-post");
-  let title = document.getElementById("list-post").children[0].innerText; //h3#list-post-title
-  let content = document.getElementById("list-post").children[1].innerText; //p#list-post-content
-  let meta = document.getElementById("list-post").children[2].innerText; //p#list-post-meta
-  console.log(title);
 }
 
 async function switchToViewPosts() {
-  document.getElementById("post-creation").style.display = "none";
-  document.getElementById("posts-list").style.display = "block";
-  document.getElementById("post-view").style.display = "none";
   let userPosts = await listPosts().then(response => {
     displayUserPosts(response);
   });
+  document.getElementById("post-creation").style.display = "none";
+  document.getElementById("posts-list").style.display = "block";
+  document.getElementById("post-view").style.display = "none";
 }
 function displayUserPosts(data) {
   let username = sessionStorage.getItem("username");
@@ -57,12 +138,13 @@ function displayUserPosts(data) {
   let targetElement = document.getElementById("posts-list");
   targetElement.innerHTML = "";
   for (let i = 0; i < filteredData.length; i++) {
+    // withdraw target content
     let newItem = filteredData[i];
     let title = newItem.title;
     let content = newItem.description;
     let meta = newItem.id;
-
-    let newDiv = document.createElement("div")
+    // construct to html
+    let newDiv = document.createElement("div");
     newDiv.setAttribute("id", "list-post");
     let newTitle = document.createElement("h3");
     newTitle.setAttribute("id", "list-post-title");
@@ -76,6 +158,8 @@ function displayUserPosts(data) {
     newDiv.appendChild(newTitle);
     newDiv.appendChild(newContent);
     newDiv.appendChild(newMeta);
+    // add to listener
+    newDiv.addEventListener("click", switchToViewAPost);
     targetElement.appendChild(newDiv);
   }
 }
@@ -93,14 +177,37 @@ function checkTokenAvailable() {
   return true;
 }
 
-function createPostOnClick() {
+async function createPostOnClick() {
   try {
     let title = document.querySelector("#post-title").value;
     let dscrpt = document.querySelector("#post-content").value;
     console.log(title);
     console.log(dscrpt);
-    createPost(title, dscrpt);
+    let newPost = await createPost(title, dscrpt);
+    console.log(newPost);
+    // display post
+    document.getElementById("post-creation").style.display = "none";
+    document.getElementById("posts-list").style.display = "none";
+    document.getElementById("post-view").style.display = "block";
+
+    var newTitle = newPost.title; //h3#list-post-title
+    var newContent = newPost.description; //p#list-post-content
+    let newMeta = newPost.id; //p#list-post-meta
+
+    document.getElementById("post-view-title").innerText = newTitle;
+    document.getElementById("post-view-content").innerText = newContent;
+    document.getElementById("post-view-meta").innerText = "post id: " + newMeta;
+    console.log(document.getElementById("post-view-comments"));
+    document.getElementById("post-view-comments").children[0].innerHTML = "";
   } catch (err) {
     console.log(err);
   }
+}
+
+function deleteCommentButtonOnClick() {
+  alert("delete comment is not available for this moment");
+}
+
+function deletePostButtonOnClick() {
+  alert("delete comment is not available for this moment");
 }
