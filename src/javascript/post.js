@@ -38,11 +38,27 @@ async function createCommentOnClick() {
     let postid = meta.split(" ")[2]; // post id: id ==> id
     let comment = document.querySelector("#comment-content").value;
     console.log(postid, comment);
-    await createComment(postid, comment);
     document.getElementById("comment-content").value = "";
-    let newP = document.createElement("p");
-    newP.innerText = comment;
-    document.getElementById("post-view-comments").children[0].appendChild(newP);
+
+    let commentId = 0;
+    let author = "";
+    await createComment(postid, comment).then(response => {
+      console.log(response);
+      commentId = response.id;
+      author = response.user.username;
+    });
+    // put in html
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML =
+      "<div id='one-comment'>" +
+      "<p id='one-comment-content'>" +
+      comment +
+      "</p><p id='one-comment-meta'>comment id: " +
+      commentId +
+      " by " +
+      author +
+      "</p><button id='delete-comment' style='display: none;'>DELETE</button></div>";
+    document.getElementById("post-view-comments").append(newDiv);
   } catch (err) {
     console.log(err);
   }
@@ -78,8 +94,10 @@ function switchToViewAPost(data) {
       newDiv.setAttribute("id", "one-comment");
       let newComment = document.createElement("p");
       newComment.innerText = comment;
+      newComment.setAttribute("id", "one-comment-content");
       let newMeta = document.createElement("p");
       newMeta.innerText = "comment id: " + commentId + " " + "by " + author;
+      newMeta.setAttribute("id", "one-comment-meta");
       let newDeleteButton = document.createElement("button");
       newDeleteButton.setAttribute("id", "delete-comment");
       newDeleteButton.innerText = "DELETE";
