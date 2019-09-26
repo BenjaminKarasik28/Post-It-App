@@ -53,7 +53,7 @@ async function deleteData(url, token = "") {
     method: "DELETE",
     mode: "cors",
     cache: "no-cache",
-    headers: myHeaders,
+    headers: myHeaders
   });
   return await response.json();
 }
@@ -101,9 +101,71 @@ async function signUp(email, pwd, username) {
   }
 }
 
+/**
+ * log in functionality to post request with email, password and receive token if succeeded
+ * @param  {string} email [email for account]
+ * @param  {string} pwd [password for account]
+ * @param  {string} username [username for account]
+ * @return {object} object [dictionary having token if login succeeds]
+ */
+async function logIn(email, pwd) {
+  if (email === undefined || typeof email !== "string" || email === "") {
+    throw "Exception from signUp(): argument 'email' incorrect";
+  }
+  if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
+    throw "Exception from signUp(): argument 'pwd' incorrect";
+  }
+  try {
+    let url = "http://thesi.generalassemb.ly:8080/login";
+    let data = {
+      email: email,
+      password: pwd,
+    };
+    console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
+    let response = await postData(url, data);
+    console.log("logIn response:" + JSON.stringify(response));
+    if (response.token !== undefined) {
+      let username = response.username;
+      let token = response.token;
+      console.log(username);
+      console.log(token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("sessionToken", token);
+      console.log("username and token saved in local storage");
+      return { token: token };
+    } else {
+      console.log("login failed");
+      console.log(response.message);
+      return {};
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("login finished");
+  }
+}
+
+async function listPostsQC() {
+  let url = "http://thesi.generalassemb.ly:8080/post/list";
+  try {
+    console.log(`list post request: url(${url})`);
+    var response = await getData(url).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("list post response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("list posts finished");
+  }
+}
+
 async function createPost(title, dscrpt) {
   // check user token data validation
-  let token = sessionStorage.getItem("token");
+  let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
     throw "Exception in createPost(): token not available";
@@ -131,7 +193,7 @@ async function createPost(title, dscrpt) {
 
 async function createComment(postId, commentContent) {
   // check user token data validation
-  let token = sessionStorage.getItem("token");
+  let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
     throw "Exception in createPost(): token not available";
@@ -175,7 +237,7 @@ async function getCommentByPostId(postId) {
 }
 
 async function getCommentByUser() {
-  let token = sessionStorage.getItem("token");
+  let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
     throw "Exception in createPost(): token not available";
@@ -198,7 +260,7 @@ async function getCommentByUser() {
 }
 
 async function deletePostByPostId(postid) {
-  let token = sessionStorage.getItem("token");
+  let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
     throw "Exception in createPost(): token not available";
@@ -219,6 +281,84 @@ async function deletePostByPostId(postid) {
     console.log("delete post by post id finished");
   }
 }
+
+async function createProfile(alterEmail, mobile, address){
+  let token = localStorage.getItem("sessionToken");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/profile";
+  let data = {
+      "additionalEmail" : alterEmail,
+      "mobile" : mobile,
+      "address" : address
+    }
+  try {
+    console.log(`create profile request: url(${url}) -- data (${JSON.stringify(data)})`);
+    var response = await postData(url, data, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("create profile response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("create profile finished");
+  }
+}
+
+async function getProfile(){
+  let token = localStorage.getItem("sessionToken");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/profile";
+  try {
+    console.log(`get profile request: url(${url})`);
+    var response = await getData(url, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("get profile response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("get profile finished");
+  }
+}
+
+async function updateProfile(mobile){
+  let token = localStorage.getItem("sessionToken");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/profile";
+  let data = {
+      "mobile" : mobile,
+    }
+  try {
+    console.log(`update profile request: url(${url}) -- data (${JSON.stringify(data)})`);
+    var response = await postData(url, data, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("update profile response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("update profile finished");
+  }
+}
+
 
 //test
 // let test = true;

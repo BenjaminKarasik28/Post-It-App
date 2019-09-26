@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
   console.log(`token availability: ${tokenAvailable}`);
   if (tokenAvailable) {
     document.getElementById("form-to-login").style.display = "none";
-    document.getElementById("logined-username").innerText = sessionStorage.getItem("username");
+    document.getElementById("logined-username").innerText = localStorage.getItem("username");
     document.getElementById("err-msg").style.display = "none";
   } else {
     document.getElementById("form-logined").style.display = "none";
@@ -122,7 +122,7 @@ function switchToViewAPost(data) {
 }
 
 async function switchToViewPosts() {
-  let userPosts = await listPosts().then(response => {
+  let userPosts = await listPostsQC().then(response => {
     displayUserPosts(response);
   });
   document.getElementById("post-creation").style.display = "none";
@@ -130,7 +130,7 @@ async function switchToViewPosts() {
   document.getElementById("post-view").style.display = "none";
 }
 function displayUserPosts(data) {
-  let username = sessionStorage.getItem("username");
+  let username = localStorage.getItem("username");
   console.log(username);
   console.log(data);
   let filteredData = data.filter(data => data.user.username === username);
@@ -171,7 +171,7 @@ function switchToCreatePost() {
 }
 
 function checkTokenAvailable() {
-  if (sessionStorage.getItem("token") === null) {
+  if (localStorage.getItem("sessionToken") === null) {
     return false;
   }
   return true;

@@ -9,7 +9,12 @@ TO DO:
 
 
 
-
+/**
+ * FUNCTION: 
+ * Loads virtual DOM which includes a log in button
+ * calls loadPosts() and loadUser()
+ * 
+ */
 document.addEventListener("DOMContentLoaded", function(e) {
     loadPosts()
     let logInButton = document.createElement('button')
@@ -23,13 +28,20 @@ document.addEventListener("DOMContentLoaded", function(e) {
    
 })
 
+/**
+ * FUNCTION: Called on button click
+ * Performs POST api call to back end server
+ * Sends html input values as body of fetch request
+ * Fetch call returns a token
+ * Token validation occurs in then clause of fetch call
+ * Sending token and email to local storage if token is in database
+ * Else returns an error message to the screen
+ * 
+ */
 function loadUser(){
 
     let emailInput = document.querySelector("#username").value
     let passwordInput = document.querySelector("#password").value
-
-    console.log(emailInput)
-    console.log(passwordInput)
 
     fetch("http://thesi.generalassemb.ly:8080/login", {
         method : "post",
@@ -49,11 +61,14 @@ function loadUser(){
     .then((json) => {
         
         let token = json.token
+        let username = json.username
+        console.log(username)
         if(token!==undefined){
             console.log(token)
             localStorage.setItem("email", emailInput)
             localStorage.setItem("sessionToken", token)
-            location.reload();
+            localStorage.setItem("username", username)
+            //location.reload();
         }
         else{
             let loginError = document.createElement('p')
@@ -64,15 +79,25 @@ function loadUser(){
         }
         
         
-    })
+    }) //Doesn't do anything here
     .catch( () =>{
         alert(error)
     })
 
 }
+/**
+ * 
+ */
 function loadCreatePostButton(){
 
 }
+/**
+ * FUNCTION: called on DOM load
+ * Performs GET api call to back end server
+ * If fetch successful, loop through array of json (posts) and create virtual DOM elements matched to api call return
+ * Dom is manipulated based on if user is logged in or not (by checking if localStorage has the token)
+ * If they are logged in, display add a comment button
+ */
 function loadPosts(){
 
     fetch("http://thesi.generalassemb.ly:8080/post/list", {
@@ -86,7 +111,11 @@ function loadPosts(){
             posts.forEach((post)=>{
 
                 let commentButton = document.createElement('button')
+                let div = document.createElement('div')
+                div.className = "posts-div"
+                document.querySelector('#main').appendChild(div)
                 
+            
             
                 let title = `Title: ${post.title}`
                 let postTitle = document.createElement('h1')
@@ -111,7 +140,6 @@ function loadPosts(){
                     document.querySelector('#main').appendChild(commentButton)
                 }
 
-                console.log(commentButton)
                 commentButton.addEventListener('click', ()=>{
                     
                     let commentDiv = document.createElement("div")
@@ -135,7 +163,9 @@ function loadPosts(){
     })
 }
    
-
+/**
+ * 
+ */
 function loadLogin(logInButton){
     if(!localStorage.getItem("sessionToken") ) { 
        

@@ -8,3 +8,21 @@ body {
     width: 30%
         
     }
+
+    .posts-div {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .posts-div:before {
+        border-bottom: 1px solid #f00;
+        content: '';
+        display: block;
+        width: 50%;
+      }
+      .posts-div:after {
+        border-bottom: 1px solid #f00;
+        content: '';
+        display: block;
+        width: 50%;
+      }
