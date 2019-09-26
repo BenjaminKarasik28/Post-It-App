@@ -57,11 +57,12 @@ function displayUserPosts(data) {
   let targetElement = document.getElementById("posts-list");
   targetElement.innerHTML = "";
   for (let i = 0; i < filteredData.length; i++) {
+    // withdraw target content
     let newItem = filteredData[i];
     let title = newItem.title;
     let content = newItem.description;
     let meta = newItem.id;
-
+    // construct to html
     let newDiv = document.createElement("div")
     newDiv.setAttribute("id", "list-post");
     let newTitle = document.createElement("h3");
@@ -76,6 +77,8 @@ function displayUserPosts(data) {
     newDiv.appendChild(newTitle);
     newDiv.appendChild(newContent);
     newDiv.appendChild(newMeta);
+    // add to listener
+    newDiv.addEventListener("click", switchToViewAPost);
     targetElement.appendChild(newDiv);
   }
 }
