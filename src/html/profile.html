@@ -38,50 +38,32 @@
         <button id="logined-username" onclick="location.href='./profile.html'" type="button">username</button>
       </div>
     </div>
-
-    <div class="row" id=" err-msg">
-      <p id="err-msg-p">error</p>
+    <div clss="row" id="err-row">
+      <p id="err-msg"> error </p>
     </div>
-
     <div clss="row" id="profile-form">
       <div id="profile-display">
         <table style="width:100%">
           <tr>
             <th>Username:</th>
-            <td>profile-username</td>
+            <td id=profile-username>profile-username</td>
           </tr>
           <tr>
-            <th>Additional Email:</th>
-            <td>profile-add-email</td>
-          </tr>
-          <tr>
-            <th>Mobile:</th>
-            <td>profile-mobile</td>
-          </tr>
-          <tr>
-            <th>Address:</th>
-            <td>profile-address</td>
+              <th>Additional Email:</th>
+              <td><input type="text" id="profile-email" placeholder="additional email"></td>
+            </tr>
+            <tr>
+              <th>Mobile:</th>
+              <td><input type="text" id="profile-mobile" placeholder="mobile"></td>
+            </tr>
+            <tr>
+              <th>Address:</th>
+              <td><input type="text" id="profile-address" placeholder="address"></td>
+            </tr>
           </tr>
         </table>
 
-        <button id="profile-edit-button">edit profile</button>
-      </div>
-      <div id="profile-editor">
-        <table style="width:100%">
-          <tr>
-            <th>Additional Email:</th>
-            <td><input placeholder="additional email"></td>
-          </tr>
-          <tr>
-            <th>Mobile:</th>
-            <td><input placeholder="mobile"></td>
-          </tr>
-          <tr>
-            <th>Address:</th>
-            <td><input placeholder="address"></td>
-          </tr>
-        </table>
-      </div>
+        <button id="profile-edit-button">save</button>
     </div>
   </body>
   <script src="../javascript/thesi-api.js"></script>

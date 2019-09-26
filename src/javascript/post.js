@@ -170,13 +170,6 @@ function switchToCreatePost() {
   document.getElementById("post-view").style.display = "none";
 }
 
-function checkTokenAvailable() {
-  if (localStorage.getItem("sessionToken") === null) {
-    return false;
-  }
-  return true;
-}
-
 async function createPostOnClick() {
   try {
     let title = document.querySelector("#post-title").value;
