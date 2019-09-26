@@ -57,7 +57,11 @@ function loadUser(){
     })
 
 }
+function loadCreatePostButton(){
+    
+}
 function loadPosts(){
+
     fetch("http://thesi.generalassemb.ly:8080/post/list", {
         method: "GET"
     })
@@ -66,13 +70,12 @@ function loadPosts(){
     })
     .then(posts =>{
         
-        console.log(localStorage.getItem("sessionToken"))
-
-        if(localStorage.getItem("sessionToken") !==null){
-            console.log("I MADE IT MAMA")
-        }
-        
         posts.forEach((post)=>{
+
+            
+            let commentButton = document.createElement('button')
+            
+        
             let title = `Title: ${post.title}`
             let postTitle = document.createElement('h1')
             postTitle.textContent = title
@@ -86,11 +89,15 @@ function loadPosts(){
             postUsername.textContent = username
 
 
-            if(localStorage)
             document.querySelector('#main').appendChild(postTitle)
             document.querySelector('#main').appendChild(postDesc)
             document.querySelector('#main').appendChild(postUsername)
-
+            
+            if(localStorage.getItem("sessionToken") !==null){
+                
+                commentButton.innerHTML = "Add a comment"
+                document.querySelector('#main').appendChild(commentButton)
+            }
 
         })
     })
