@@ -2,19 +2,43 @@ html,
 body {
   width: 100vw;
   height: 100vh;
+  font-family: "Muli", sans-serif;
+  background-color: hsl(43, 65%, 86%);
 }
 
-#nav-bar{
+#nav-bar {
   height: 100px;
 }
+
 #icon {
   top: 20px;
+  text-align: center;
 }
 
 #search {
   top: 20px;
 }
 
+#search-input {
+  border-radius: 5px;
+}
+
+#form-logined {
+  top: 20px;
+  text-align: center;
+}
+
+button#search-submit {
+  background-color: black;
+  border-radius: 20px;
+  color: wheat;
+}
+
+button#search-submit:hover {
+  background-color: green;
+  border-radius: 20px;
+  color: white;
+}
 
 button#post-switcher-view-posts {
   width: 100%;
@@ -34,4 +58,20 @@ textarea#post-content {
 
 button#post-submit {
   align-items: flex-end;
+}
+
+div#list-post {
+  border-style: solid;
+  border-radius: 10px;
+  border-color: wheat;
+  background-color: white;
+  padding: 10px;
+}
+
+p#list-post-content {
+  text-align: center;
+}
+
+p#list-post-meta {
+  text-align: right;
 }

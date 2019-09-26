@@ -5,8 +5,15 @@ document.addEventListener("DOMContentLoaded", function(e) {
   if (tokenAvailable) {
     document.getElementById("form-to-login").style.display = "none";
     document.getElementById("logined-username").innerText = sessionStorage.getItem("username");
+    document.getElementById("err-msg").style.display = "none";
   } else {
     document.getElementById("form-logined").style.display = "none";
+    document.getElementById("post-switcher").style.display = "none";
+    document.getElementById("post-creation").style.display = "none";
+    document.getElementById("posts-list").style.display = "none";
+    document.getElementById("post-view").style.display = "none";
+    document.getElementById("err-msg").style.display = "block";
+    return;
   }
 
   // set up default view
@@ -20,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
   document.getElementById("post-switcher-create").addEventListener("click", switchToCreatePost);
   document.getElementById("post-submit").addEventListener("click", createPostOnClick);
   document.getElementById("comment-submit").addEventListener("click", createCommentOnClick);
-
+  document.getElementById("post-delete").addEventListener("click", deletePostButtonOnClick);
   // add to every post
   // document.getElementById("list-post").addEventListener("click", switchToViewAPost);
 });
@@ -77,6 +84,7 @@ function switchToViewAPost(data) {
       newDeleteButton.setAttribute("id", "delete-comment");
       newDeleteButton.innerText = "DELETE";
       newDeleteButton.style.display = "none";
+      newDeleteButton.addEventListener("click", deleteCommentButtonOnClick);
       newDiv.appendChild(newComment);
       newDiv.appendChild(newMeta);
       newDiv.appendChild(newDeleteButton);
@@ -176,4 +184,12 @@ async function createPostOnClick() {
   } catch (err) {
     console.log(err);
   }
+}
+
+function deleteCommentButtonOnClick() {
+  alert("delete comment is not available for this moment");
+}
+
+function deletePostButtonOnClick() {
+  alert("delete comment is not available for this moment");
 }

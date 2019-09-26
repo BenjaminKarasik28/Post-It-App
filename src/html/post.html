@@ -15,6 +15,9 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet" />
+    <!-- customized style-->
     <link rel="stylesheet" type="text/css" href="../css/post.css" />
     <title>Post</title>
   </head>
@@ -22,7 +25,7 @@
     <div class="row" id="nav-bar">
       <div class="col" id="icon">icon</div>
       <div class="col" id="search">
-        <input id="search-input" />
+        <input id="search-input" placeholder="...search"/>
         <button id="search-submit">search</button>
       </div>
       <div class="col" id="form-to-login">
@@ -35,7 +38,9 @@
         <a id="logined-username" href="#"> username </a>
       </div>
     </div>
-
+    <div class="row" id="err-msg">
+      <h1 id="err-msg-h1">Error</h1>
+    </div>
     <div class="row" id="post-switcher">
       <div class="col">
         <button id="post-switcher-view-posts">view</button>
@@ -70,12 +75,13 @@
         <div id="post-view-comments">
           <div id="one-comment">
             <p>comment 1</p>
-            <p>comment meta </p>
+            <p>comment meta</p>
             <button id="delete-comment">delete comment</button>
+          </div>
         </div>
         <textarea id="comment-content"></textarea>
         <button id="comment-submit">comment</button>
-        <button id="post-delete">DELETE</button>
+        <button id="post-delete">DELETE POST</button>
       </div>
     </div>
   </body>

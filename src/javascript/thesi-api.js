@@ -42,6 +42,22 @@ async function getData(url, token = "") {
   return await response.json();
 }
 
+async function deleteData(url, token = "") {
+  var myHeaders = {};
+  myHeaders["Content-Type"] = "application/json";
+  if (token !== "") {
+    console.log("post Data: token is " + token);
+    myHeaders["Authorization"] = token;
+  }
+  let response = await fetch(url, {
+    method: "DELETE",
+    mode: "cors",
+    cache: "no-cache",
+    headers: myHeaders
+  });
+  return await response.json();
+}
+
 /**
  * sign up functionality to post request with email, password, username, and receive token if succeeded
  * @param  {string} email [email for account]
@@ -240,6 +256,29 @@ async function getCommentByUser() {
     console.log(error);
   } finally {
     console.log("get comment by user finished");
+  }
+}
+
+async function deletePostByPostId(postid) {
+  let token = sessionStorage.getItem("token");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/post/" + postid;
+  try {
+    console.log(`delete post by post id request: url(${url})`);
+    var response = await deleteData(url, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("delete post by post id response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("delete post by post id finished");
   }
 }
 
