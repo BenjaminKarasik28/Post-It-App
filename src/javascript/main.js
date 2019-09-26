@@ -1,30 +1,8 @@
-
 document.addEventListener("DOMContentLoaded", function(e) {
     loadPosts()
     let logInButton = document.createElement('button')
-
+    loadLogin(logInButton)
     
-
-    if(!localStorage.getItem("sessionToken") ) { //replace with token DEFINITELY
-        console.log("im here")
-        console.log(typeof(localStorage.getItem("sessionToken")))
-        
-        
-        logInButton.textContent = "log in"
-        document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">
-            <input id = "password" type= "password" placeholder="password" >`
-        logInButton.type = "submit"
-        logInButton.value = "Log in"
-        document.querySelector("#login").appendChild(logInButton)
-    }
-    else {
-        let userName = localStorage.getItem("email").split("@")[0]
-        let helloUsername = `Welcome back, ${userName}`
-        let welcomeBack = document.createElement("p")
-        welcomeBack.textContent = helloUsername
-        document.querySelector("#login").appendChild(welcomeBack)
-    }
-
     logInButton.addEventListener('click', function(e){
       
       loadUser()
@@ -33,12 +11,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
    
 })
 
-
-
 function loadUser(){
 
     let emailInput = document.querySelector("#username").value
-
     let passwordInput = document.querySelector("#password").value
 
     console.log(emailInput)
@@ -60,13 +35,20 @@ function loadUser(){
         return response.json()
     })
     .then((json) => {
-        // console.log(json)
-        let token = json.token
         
-        console.log(token)
-        localStorage.setItem("email", emailInput)
-        localStorage.setItem("sessionToken", token)
-        //document.reload()
+        let token = json.token
+        if(token!==undefined){
+            console.log(token)
+            localStorage.setItem("email", emailInput)
+            localStorage.setItem("sessionToken", token)
+            location.reload();
+        }
+        else{
+            let loginError = document.createElement('p')
+            loginError.textContent = "Your email or password is incorrect"
+            loginError.style.color  = "red"
+            document.querySelector("#login").appendChild(loginError)
+        }
         
         
     })
@@ -83,6 +65,13 @@ function loadPosts(){
         return response.json();
     })
     .then(posts =>{
+        
+        console.log(localStorage.getItem("sessionToken"))
+
+        if(localStorage.getItem("sessionToken") !==null){
+            console.log("I MADE IT MAMA")
+        }
+        
         posts.forEach((post)=>{
             let title = `Title: ${post.title}`
             let postTitle = document.createElement('h1')
@@ -96,6 +85,8 @@ function loadPosts(){
             let postUsername = document.createElement('p')
             postUsername.textContent = username
 
+
+            if(localStorage)
             document.querySelector('#main').appendChild(postTitle)
             document.querySelector('#main').appendChild(postDesc)
             document.querySelector('#main').appendChild(postUsername)
@@ -106,4 +97,26 @@ function loadPosts(){
 }
    
 
-    
+
+function loadLogin(logInButton){
+    if(!localStorage.getItem("sessionToken") ) { //replace with token DEFINITELY
+        console.log("im here")
+        console.log(typeof(localStorage.getItem("sessionToken")))
+        
+        
+        logInButton.textContent = "log in"
+        document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">
+            <input id = "password" type= "password" placeholder="password" >`
+        logInButton.type = "submit"
+        logInButton.value = "Log in"
+        document.querySelector("#login").appendChild(logInButton)
+    }
+    else {
+        let userName = localStorage.getItem("email").split("@")[0]
+        let helloUsername = `Welcome back, ${userName[0].toUpperCase()}${userName.slice(1)}`
+        let welcomeBack = document.createElement("p")
+        welcomeBack.textContent = helloUsername
+        document.querySelector("#login").appendChild(welcomeBack)
+    }
+
+}
