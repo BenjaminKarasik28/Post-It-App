@@ -30,12 +30,11 @@ function createCommentOnClick() {
   }
 }
 function switchToViewAPost(e) {
-  // alert("switchToViewAPost");
   document.getElementById("post-creation").style.display = "none";
   document.getElementById("posts-list").style.display = "none";
   document.getElementById("post-view").style.display = "block";
-  console.log(this);
   //stopPropogation
+  // display post
   let divOnePostView = this.children;
   let title = divOnePostView[0].innerText; //h3#list-post-title
   let content = divOnePostView[1].innerText; //p#list-post-content
@@ -43,10 +42,32 @@ function switchToViewAPost(e) {
   document.getElementById("post-view-title").innerText = title;
   document.getElementById("post-view-content").innerText = content;
   document.getElementById("post-view-meta").innerText = meta;
-
-  let id = meta;
+  // display comment
+  let id = meta.split(" ")[2]; // post id: {id} ==> {id}
   document.getElementById("post-view-comments").innerHTML = "";
-  console.log(getCommentByPostId(id));
+  let divComment = document.createElement("div");
+  let commentForId = getCommentByPostId(id).then(response => {
+    console.log(response);
+    console.log(divComment)
+    for (let i = 0; i < response.length; i++) {
+      // withdraw data
+      let dataI = response[i];
+      let commentId = dataI.id;
+      let comment = dataI.text;
+      let author = dataI.user.username;
+      console.log(comment)
+      // put in html
+      let newComment = document.createElement("p");
+      newComment.innerText = comment;
+      let newMeta = document.createElement("p");
+      newMeta.innerText = "comment id: " + commentId + " " + "by " + author;
+      divComment.appendChild(newComment);
+    }
+  });
+  document.getElementById("post-view-comments").appendChild(divComment)
+
+  console.log(this);
+  // let divComments =
 }
 
 async function switchToViewPosts() {
