@@ -41,7 +41,7 @@ Therefore, we defined the UI as
 ![alt text][profile_page]
 
 
-# Tech Stack and Principles
+# Tech Stack, Methodologies and Principles
 
 ### Tech Stack
 
@@ -50,6 +50,12 @@ Therefore, we defined the UI as
 - CSS for styling and layout
 
 - Javascript for Listners for event handling, DOM manipulation, Communication with backend API, Ajax fetch
+
+### Methodology
+
+Agile Development and Extreme Programming
+
+- fast iteration, early deliverables, pair programming, continuous integration
 
 ### Principles
 
