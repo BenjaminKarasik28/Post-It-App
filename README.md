@@ -1,22 +1,41 @@
 # S1-Project-1
 description: 
 
-# Features and User Stories
-### Feature List:
+# User Stories and Features 
+### User Stories
 
-Pivotal Tracker link: 
+[Pivotal Tracker link](https://www.pivotaltracker.com/n/projects/2400279)
+
+### Feature List
+
+A user needs to:
+- sign up / Log in
+- Create / View / Delete post
+- Create / View / Delete comment 
+- Create / View / Update comment
+
+### Wireframe
+Therefore, we defined the UI as
+
 
 # Tech Stack and Principles
 
-Principles:
+### Tech Stack
 
-..*KISS (keep it simple, stupid)
+- HTML for markdown
 
-..*DRY (don't repeat yourself) (modularity)
+- CSS for styling and layout
 
-# Application Structure
-image
-wireframes
+- Javascript for Listners for event handling, DOM manipulation, Communication with backend API, Ajax fetch
+
+### Principles
+
+- KISS (keep it simple, stupid)
+
+- DRY (don't repeat yourself) (modularity)
+
+### Application Structure
+
 
 
 # Work Log
