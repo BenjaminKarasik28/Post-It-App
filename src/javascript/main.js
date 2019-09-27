@@ -17,14 +17,11 @@ TO DO:
  */
 document.addEventListener("DOMContentLoaded", function(e) {
     loadPosts()
+
     let logInButton = document.createElement('button')
     loadLogin(logInButton)
     
-    logInButton.addEventListener('click', function(e){
-      
-      loadUser()
-        
-    })
+    logInButton.addEventListener('click',loadUser)
    
 })
 
@@ -65,6 +62,7 @@ function loadUser(){
         console.log('IM HERE')
         
         if(token!==undefined){
+           
             console.log(token)
             localStorage.setItem("email", emailInput)
             localStorage.setItem("sessionToken", token)
@@ -72,117 +70,129 @@ function loadUser(){
             location.reload();
         }
         else{
+            
             let loginError = document.createElement('p')
             loginError.textContent = "Your email or password is incorrect"
             loginError.style.color  = "red"
             document.querySelector("#login").appendChild(loginError)
-            loginError.style.display = ''
+            
+            
         }
-        
-        
-    }) //Doesn't do anything here
-    .catch( () =>{
-        alert(error)
-    })
+    }) 
 
 }
-/**
- * 
- */
-function loadCreatePostButton(){
 
-}
 /**
  * FUNCTION: called on DOM load
  * Performs GET api call to back end server
  * If fetch successful, loop through array of json (posts) and create virtual DOM elements matched to api call return
  * Dom is manipulated based on if user is logged in or not (by checking if localStorage has the token)
- * If they are logged in, display add a comment button
+ * If they are logged in, display add a comment button & list of comments button
  */
 function loadPosts(){
 
     fetch("http://thesi.generalassemb.ly:8080/post/list", {
-        method: "GET"
+        method: "get"
     })
     .then((response) => {
         return response.json();
     })
     .then(posts =>{
        
-            posts.forEach((post)=>{
-                let postID = post.id
-                localStorage.setItem("id", postID)
-                // console.log(post.id)
-                let commentButton = document.createElement('button')
-                let div = document.createElement('div')
-                div.setAttribute("class", "posts-div") 
-                document.querySelector('#main').appendChild(div)
-                
+        posts.forEach((post)=>{
+            let postID = post.id
+            localStorage.setItem("id", postID)
             
-                let title = `Title: ${post.title}`
-                let postTitle = document.createElement('h1')
-                postTitle.textContent = title
-
-                let desc = post.description
-                let postDesc = document.createElement('p')
-                postDesc.textContent = desc
-
-                let username = ` by: ${post.user.username}`
-                let postUsername = document.createElement('p')
-                postUsername.textContent = username
-
-
-                div.appendChild(postTitle)
-                div.appendChild(postDesc)
-                div.appendChild(postUsername)
-                
-                if(localStorage.getItem("sessionToken") !==null){
-                    
-                    commentButton.innerHTML = "Add a comment"
-                    div.appendChild(commentButton)
-                }
-                let commentDiv = document.createElement("div")
-                let commentInput = document.createElement("input")
-                let newCommentAdd = document.createElement("button")
-                
-                
-                commentButton.addEventListener('click', ()=>{
-                    
-                    newCommentAdd.innerHTML = "Post Comment"
-                    commentInput.setAttribute("type", "text")
-                    postUsername.appendChild(commentDiv)
-                    commentDiv.appendChild(commentInput)
-                    commentDiv.appendChild(newCommentAdd)
-                    commentButton.style.display = "none"
-                })
-                newCommentAdd.addEventListener('click', () =>{
-                    console.log(postID)
-                    let newComment = commentInput.value
-                    fetch(`http://thesi.generalassemb.ly:8080/comment/${postID}`, {
-                        method : "post",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
-                            'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        text: newComment
-                    })
-
-                    })
-                    .then(response => {
-                        return response.json()
-                    })
-                    .then((json) => {
-                        commentDiv.innerHTML= " "
-                        commentDiv.style.marginTop = "3px"
-                        commentDiv.innerText = "Comment added"
-
-                    })
-                    
-                })
+            let addCommentButton = document.createElement('button')
+            let seeAllCommentsButton = document.createElement('button')
+            let div = document.createElement('div')
+            div.setAttribute("class", "posts-div") 
+            document.querySelector('#main').appendChild(div)
             
+        
+            let title = `Title: ${post.title}`
+            let postTitle = document.createElement('h1')
+            postTitle.textContent = title
+
+            let desc = post.description
+            let postDesc = document.createElement('p')
+            postDesc.textContent = desc
+
+            let username = ` by: ${post.user.username}`
+            let postUsername = document.createElement('p')
+            postUsername.textContent = username
+
+
+            div.appendChild(postTitle)
+            div.appendChild(postDesc)
+            div.appendChild(postUsername)
+            
+            if(localStorage.getItem("sessionToken") !==null){
+                
+                addCommentButton.innerHTML = "Add a comment"
+                seeAllCommentsButton.innerHTML = "See all comments for this post"
+                div.appendChild(addCommentButton)
+                div.appendChild(seeAllCommentsButton)
+
+            }
+            let commentDiv = document.createElement("div")
+            let commentInput = document.createElement("input")
+            let postCommentButton = document.createElement("button")
+            
+            seeAllCommentsButton.addEventListener('click', ()=>{
+                
+                fetch(`http://thesi.generalassemb.ly:8080/post/${postID}/comment`,{
+                    method: "get" 
+                })
+                .then((response) =>{
+                    return response.json()
+                })
+                .then((comments)=>{
+                    comments.forEach(comment =>{
+                        let postComment = document.createElement('p')
+                        postComment.textContent = comment.text
+                        div.appendChild(postComment)
+                    })
+                })
             })
+
+            addCommentButton.addEventListener('click', ()=>{
+                
+                postCommentButton.innerHTML = "Post Comment"
+                commentInput.setAttribute("type", "text")
+                postUsername.appendChild(commentDiv)
+                commentDiv.appendChild(commentInput)
+                commentDiv.appendChild(postCommentButton)
+                addCommentButton.style.display = "none"
+            })
+
+            postCommentButton.addEventListener('click', () =>{
+
+                let newComment = commentInput.value
+                fetch(`http://thesi.generalassemb.ly:8080/comment/${postID}`, {
+                    method : "post",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
+                        'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: newComment
+                })
+
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then( () => {
+                    commentDiv.innerHTML= " "
+                    commentDiv.style.marginTop = "3px"
+                    commentDiv.innerText = `Comment added`
+                })
+                                
+            })
+        
+        })
     })
 }
    
