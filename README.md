@@ -80,7 +80,7 @@ Agile Development and Extreme Programming
 
 - define HTML markdown (2019/09/24 Tue ~ 2019/09/25 Wed)
 
-- implement connector for api request and response (2019/09/24 Tue ~ 2019/09/27 Fri)
+- implement consumer for api request and response (2019/09/24 Tue ~ 2019/09/27 Fri)
 
 - implement javascript for each page (2019/09/24 Tue ~ 2019/09/27 Fri)
 
@@ -92,13 +92,13 @@ Agile Development and Extreme Programming
 
 ~~Have placeholders for user login and sign-up (i.e., create basic HTML forms).~~
 
-Have a user directed to a home page that contains all posts once they sign in.
+~~Have a user directed to a home page that contains all posts once they sign in.~~
 
-Allow a user to create and delete their own posts, as well as view and comment on others’ posts.
+~~Allow a user to create and delete their own posts, as well as view and comment on others’ posts.~~
 
-Add front-end Ajax calls to consume the given APIs.
+~~Add front-end Ajax calls to consume the given APIs.~~
 
-Use JavaScript for DOM manipulation.
+~~Use JavaScript for DOM manipulation.~~
 
 ~~Include separate HTML, CSS, and JavaScript files.~~
 
@@ -110,7 +110,7 @@ The front-end application you built.
 
 A Git repository hosted on GitHub with a link to your hosted app.
 
-Around 50 (or more) commits on GitHub, dating back to the beginning of the project. (Commit early, commit often. Tell a story with your commits. Each message should give a clear idea of what you changed.)
+~~Around 50 (or more) commits on GitHub, dating back to the beginning of the project. (Commit early, commit often. Tell a story with your commits. Each message should give a clear idea of what you changed.)~~
 
 A README.md file with:
 
@@ -118,15 +118,15 @@ A README.md file with:
 
 ... A couple of paragraphs about the general approach you took.
 
-... Descriptions of any unsolved problems or major hurdles you had to overcome.
+... ~~Descriptions of any unsolved problems or major hurdles you had to overcome.~~
 
-... A link to your planning documentation for how you broke down this project with deliverables and timelines.
+... ~~A link to your planning documentation for how you broke down this project with deliverables and timelines.~~
 
 Installation instructions for any dependencies.
 
-A link to your user stories — who your users are, what they want, and why.
+~~A link to your user stories — who your users are, what they want, and why.~~
 
-A link to your wireframes — sketches of major views or interfaces in your application.
+~~A link to your wireframes — sketches of major views or interfaces in your application.~~
 
 
 [home_page]: https://github.com/BenjaminKarasik28/S1-Project-1/blob/qc/image/home_page.png "home page 1"
