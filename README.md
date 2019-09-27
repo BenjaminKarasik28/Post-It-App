@@ -35,7 +35,7 @@ Therefore, we defined the UI as
 - DRY (don't repeat yourself) (modularity)
 
 ### Application Structure
-
+![alt text][app_structure]
 
 
 # Work Log
@@ -80,3 +80,5 @@ Installation instructions for any dependencies.
 A link to your user stories — who your users are, what they want, and why.
 
 A link to your wireframes — sketches of major views or interfaces in your application.
+
+[app_structure]: https://github.com/BenjaminKarasik28/S1-Project-1/blob/qc/image/app_structure.png "app structure"
