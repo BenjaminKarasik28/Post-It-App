@@ -220,9 +220,14 @@ function loadPosts(){
                     return response.json()
                 })
                 .then( () => {
-                    commentDiv.innerHTML= " "
+                    //commentDiv.innerHTML= " "
+                    let commentAddedText = document.createElement('p')
+                    commentAddedText.textContent = `Comment added`
                     commentDiv.style.marginTop = "3px"
-                    commentDiv.innerText = `Comment added`
+                    commentDiv.appendChild(commentAddedText)
+                    commentInput.value =" "
+
+                    //commentDiv.innerText = `Comment added`
                 })                
             })
         })
