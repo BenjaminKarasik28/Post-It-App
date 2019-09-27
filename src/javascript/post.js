@@ -136,6 +136,13 @@ function switchToViewAPost(data) {
 
 async function switchToViewPosts() {
   let userPosts = await listPostsQC().then(response => {
+    response.sort(function(a, b) {
+      if (a.id > b.id){
+        return 1;
+      }else{
+        return -1;
+      }
+    })
     displayUserPosts(response);
   });
   document.getElementById("post-creation").style.display = "none";
