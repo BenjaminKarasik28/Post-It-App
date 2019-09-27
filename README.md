@@ -94,6 +94,9 @@ Agile Development and Extreme Programming
 ### Application Structure
 ![alt text][app_structure]
 
+### Hosted app
+
+[OPEN THE APP] (https://qimingchen.github.io/S1-Project-1.io/src/html/index.html)
 
 # Timeline:
 
