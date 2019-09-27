@@ -86,8 +86,13 @@ async function signUp(email, pwd, username) {
     let response = await postData(url, data);
     console.log("signup response:" + JSON.stringify(response));
     if (response.token !== undefined) {
+      let username = response.username;
       let token = response.token;
+      console.log(username);
       console.log(token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("sessionToken", token);
+      console.log("username and token saved in local storage");
       return { token: token };
     } else {
       console.log("signup failed");
@@ -356,6 +361,36 @@ async function updateProfile(mobile){
     console.log(error);
   } finally {
     console.log("update profile finished");
+  }
+}
+
+function checkTokenAvailable() {
+  if (localStorage.getItem("sessionToken") === null) {
+    return false;
+  }
+  return true;
+}
+
+async function getPostByUser(){
+  let token = localStorage.getItem("sessionToken");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/user/post";
+  try {
+    console.log(`get post by user request: url(${url})`);
+    var response = await getData(url, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("get post by user response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("get post by user finished");
   }
 }
 
