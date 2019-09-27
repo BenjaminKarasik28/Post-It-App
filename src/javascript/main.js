@@ -234,11 +234,9 @@ function loadLogin(logInButton){
         createNewPost.href = "../html/post.html"
         document.querySelector("#login").appendChild(createNewPost)
         
-        let headerDiv = document.createElement('div')
-        createNewPost.appendChild(headerDiv)
-
-
         let logOutButton = document.createElement("button")
+        logOutButton.style.display = "block"
+        logOutButton.style.marginTop = "4px"
         logOutButton.innerText = "Log Out?"
         document.querySelector("#login").appendChild(logOutButton)
 
