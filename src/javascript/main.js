@@ -1,13 +1,3 @@
-/*
-TO DO: 
-1. Create request to add a comment
-2. Create button with request to view all comments per post
-3. create delete post button
-4. add some search functionality
-
-*/
-
-
 
 /**
  * FUNCTION: 
@@ -185,7 +175,10 @@ function loadPosts(){
                                 })
                                 .then((response) => {
                                     if(response.status==200){
-                                        location.reload();
+                                        loadedCommentsDiv.removeChild(whoCommented)
+                                        loadedCommentsDiv.removeChild(postComment)
+                                        loadedCommentsDiv.removeChild(deleteComment)
+
                                     }
                                     else{
                                         console.log('error in deleting comment');
