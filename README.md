@@ -97,6 +97,7 @@ Agile Development and Extreme Programming
 ### Hosted app
 
 [OPEN THE APP](https://qimingchen.github.io/S1-Project-1.io/src/html/index.html)
+[to enable loading javascript in chrome and avoid mix content warning, please temporarily enable an unsafe script on your browser]
 
 # Timeline:
 
