@@ -1,5 +1,10 @@
 # S1-Project-1
-description: 
+
+Contributor: Benjamin Karasik, Qiming Chen
+
+This project aims to build a reddit-like front-end application. This app is expected to serve as a forum for users to signup/login their accounts, create and manage posts, comments, and profiles, and this brings up the user stories, features list, and furthermore a sketch of UI based on the features.
+
+Thus, the application structure is defined to be a multi-page application, in which multiple webpages are integrated to construct this app, and each html / css / javascript scripts are modularized to respond for only one page. 
 
 # User Stories and Features 
 ### User Stories
@@ -67,8 +72,21 @@ Agile Development and Extreme Programming
 ![alt text][app_structure]
 
 
-# Work Log
-2019/09/24:
+# Timeline:
+
+- break down features and write user stories (2019/09/24 Tue)
+
+- define application structure (2019/09/24 Tue)
+
+- define HTML markdown (2019/09/24 Tue & 2019/09/25 Wed)
+
+- implement connector for api request and response (2019/09/24 Tue, 2019/09/25 Wed, 2019/09/26 Thr, 2019/09/27 Fri)
+
+- implement javascript for each page (2019/09/24 Tue, 2019/09/25 Wed, 2019/09/26 Thr, 2019/09/27 Fri)
+
+- css styling (2019/09/26 Thr)
+
+- code cleaning up & documentation (2019/09/28 Sat, 2019/09/29 Sun)
 
 # Check List (Removed at the end of project)
 
