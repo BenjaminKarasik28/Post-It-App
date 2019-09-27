@@ -110,7 +110,9 @@ function loadPosts(){
     .then(posts =>{
        
             posts.forEach((post)=>{
-
+                let postID = post.id
+                localStorage.setItem("id", postID)
+                // console.log(post.id)
                 let commentButton = document.createElement('button')
                 let div = document.createElement('div')
                 div.setAttribute("class", "posts-div") 
@@ -134,17 +136,6 @@ function loadPosts(){
                 div.appendChild(postDesc)
                 div.appendChild(postUsername)
                 
-
-
-
-
-
-
-
-
-
-
-                
                 if(localStorage.getItem("sessionToken") !==null){
                     
                     commentButton.innerHTML = "Add a comment"
@@ -154,19 +145,41 @@ function loadPosts(){
                 let commentInput = document.createElement("input")
                 let newCommentAdd = document.createElement("button")
                 
+                
                 commentButton.addEventListener('click', ()=>{
-                    
-                  
                     
                     newCommentAdd.innerHTML = "Post Comment"
                     commentInput.setAttribute("type", "text")
                     postUsername.appendChild(commentDiv)
-                    postUsername.appendChild(commentInput)
-                    postUsername.appendChild(newCommentAdd)
+                    commentDiv.appendChild(commentInput)
+                    commentDiv.appendChild(newCommentAdd)
                     commentButton.style.display = "none"
                 })
                 newCommentAdd.addEventListener('click', () =>{
-                    console.log('we made it')
+                    console.log(postID)
+                    let newComment = commentInput.value
+                    fetch(`http://thesi.generalassemb.ly:8080/comment/${postID}`, {
+                        method : "post",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
+                            'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: newComment
+                    })
+
+                    })
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then((json) => {
+                        commentDiv.innerHTML= " "
+                        commentDiv.style.marginTop = "3px"
+                        commentDiv.innerText = "Comment added"
+
+                    })
+                    
                 })
             
             })
