@@ -50,7 +50,7 @@ function loadUser(){
         let token = json.token
         let username = json.username
         console.log('IM HERE')
-        
+       
         if(token!==undefined){
            
             console.log(token)
@@ -61,10 +61,12 @@ function loadUser(){
         }
         else{
             
-            let loginError = document.createElement('p')
-            loginError.textContent = "Your email or password is incorrect"
-            loginError.style.color  = "red"
-            document.querySelector("#login").appendChild(loginError)
+            document.querySelector("#incorrect").style.display = "inline"
+            // let loginError = document.createElement('p')
+            // loginError.innerText = " "
+            // loginError.textContent = "Your email or password is incorrect"
+            // loginError.style.color  = "red"
+            // document.querySelector("#login").appendChild(loginError)
             
             
         }
@@ -132,64 +134,73 @@ function loadPosts(){
             let loadedCommentsDiv = document.createElement("div")
             div.appendChild(loadedCommentsDiv)
             
-            
+            let showHide = true
             seeAllCommentsButton.addEventListener('click', ()=>{
                 
-                loadedCommentsDiv.innerText = ""
-                //need to change this, ugly AF
+                if(showHide === true){
+                    seeAllCommentsButton.innerHTML = "Hide All Comments for this post"
+                    showHide = false
                 
+                console.log(showHide)
 
-                fetch(`http://thesi.generalassemb.ly:8080/post/${postID}/comment`,{
-                    method: "get" 
-                })
-                .then((response) =>{
-                    return response.json()
-                })
-                .then((comments)=>{
-                    
-                    comments.forEach(comment =>{
-                        //console.log(comment.user.username)
-
-                        let postComment = document.createElement('p')
-                        let whoCommented = document.createElement('h3')
-                        postComment.textContent = comment.text
-                        let names = comment.user.username 
-                        whoCommented.textContent = `${names} commented: `
-                        loadedCommentsDiv.appendChild(whoCommented)
-                        loadedCommentsDiv.appendChild(postComment)
-
-                        if(comment.user.username === localStorage.getItem("username")){    
-                            let deleteComment = document.createElement("button")
-                            deleteComment.innerText = "Delete comment"
-                            loadedCommentsDiv.appendChild(deleteComment)
-                            
-                            deleteComment.addEventListener("click", () => {
-                                console.log('in click'+comment.id);
-                                fetch(`http://thesi.generalassemb.ly:8080/comment/${comment.id}`,{
-                                    method: "delete",
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
-                                        'Accept': 'application/json'
-                                    }   
-                                })
-                                .then((response) => {
-                                    if(response.status==200){
-                                        loadedCommentsDiv.removeChild(whoCommented)
-                                        loadedCommentsDiv.removeChild(postComment)
-                                        loadedCommentsDiv.removeChild(deleteComment)
-
-                                    }
-                                    else{
-                                        console.log('error in deleting comment');
-                                    }
-                                })
-                            })
-                        }
+                    fetch(`http://thesi.generalassemb.ly:8080/post/${postID}/comment`,{
+                        method: "get" 
                     })
-   
-                })
+                    .then((response) =>{
+                        return response.json()
+                    })
+                    .then((comments)=>{
+                        
+                        comments.forEach(comment =>{
+                            //console.log(comment.user.username)
+
+                            let postComment = document.createElement('p')
+                            let whoCommented = document.createElement('h3')
+                            postComment.textContent = comment.text
+                            let names = comment.user.username 
+                            whoCommented.textContent = `${names} commented: `
+                            loadedCommentsDiv.appendChild(whoCommented)
+                            loadedCommentsDiv.appendChild(postComment)
+
+                            if(comment.user.username === localStorage.getItem("username")){    
+                                let deleteComment = document.createElement("button")
+                                deleteComment.innerText = "Delete comment"
+                                loadedCommentsDiv.appendChild(deleteComment)
+                                
+                                deleteComment.addEventListener("click", () => {
+                                    console.log('in click'+comment.id);
+                                    fetch(`http://thesi.generalassemb.ly:8080/comment/${comment.id}`,{
+                                        method: "delete",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
+                                            'Accept': 'application/json'
+                                        }   
+                                    })
+                                    .then((response) => {
+                                        if(response.status==200){
+                                            loadedCommentsDiv.removeChild(whoCommented)
+                                            loadedCommentsDiv.removeChild(postComment)
+                                            loadedCommentsDiv.removeChild(deleteComment)
+
+                                        }
+                                        else{
+                                            console.log('error in deleting comment');
+                                        }
+                                    })
+                                })
+                            }
+                        })
+    
+                    })
+                }
+                else{
+                    showHide=true;
+                    loadedCommentsDiv.innerHTML = " "
+                    seeAllCommentsButton.innerHTML = "See All Comments for this post"
+                }
             })
+
 
             addCommentButton.addEventListener('click', ()=>{
                 
@@ -227,7 +238,7 @@ function loadPosts(){
                     commentDiv.appendChild(commentAddedText)
                     commentInput.value =" "
 
-                    //commentDiv.innerText = `Comment added`
+                    
                 })                
             })
         })
@@ -238,16 +249,16 @@ function loadPosts(){
  */
 function loadLogin(logInButton){
     if(!localStorage.getItem("sessionToken") ) { 
-       
+        let signupButton = document.createElement("button")
+        signupButton.textContent = "Sign up"
         logInButton.textContent = "log in"
         document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">
             <input id = "password" type= "password" placeholder="password" >`
         logInButton.type = "submit"
         logInButton.value = "Log in"
         document.querySelector("#login").appendChild(logInButton)
-        
-        
-        
+        document.querySelector("#login").appendChild(signupButton)
+
     }
     else {
         let userName = localStorage.getItem("email").split("@")[0]
