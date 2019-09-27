@@ -78,15 +78,15 @@ Agile Development and Extreme Programming
 
 - define application structure (2019/09/24 Tue)
 
-- define HTML markdown (2019/09/24 Tue & 2019/09/25 Wed)
+- define HTML markdown (2019/09/24 Tue ~ 2019/09/25 Wed)
 
-- implement connector for api request and response (2019/09/24 Tue, 2019/09/25 Wed, 2019/09/26 Thr, 2019/09/27 Fri)
+- implement connector for api request and response (2019/09/24 Tue ~ 2019/09/27 Fri)
 
-- implement javascript for each page (2019/09/24 Tue, 2019/09/25 Wed, 2019/09/26 Thr, 2019/09/27 Fri)
+- implement javascript for each page (2019/09/24 Tue ~ 2019/09/27 Fri)
 
 - css styling (2019/09/26 Thr)
 
-- code cleaning up & documentation (2019/09/28 Sat, 2019/09/29 Sun)
+- code cleaning up & documentation (2019/09/28 Sat ~ 2019/09/29 Sun)
 
 # Check List (Removed at the end of project)
 
