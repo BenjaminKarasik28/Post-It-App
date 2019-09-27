@@ -35,6 +35,10 @@ button#logined-username{
   font-size: 20px;
   text-align: center;
 }
+button#logined-username:hover{
+  background-color: black;
+  color:white;
+}
 
 button#search-submit {
   background-color: black;
@@ -167,3 +171,26 @@ button#post-delete {
   border-radius: 20px;
 }
 
+button#icon-btn {
+  float: center;
+  border-radius: 20px;
+  width: 75px;
+  font-size: 20px;
+}
+button#icon-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+div#err-row {
+  position: relative;
+  top: 20%;
+  left:40%;
+  width: 100%;
+}
+p#err-msg {
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  color: red;
+}
