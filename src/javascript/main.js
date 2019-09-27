@@ -158,11 +158,41 @@ function loadPosts(){
                 .then((comments)=>{
                     
                     comments.forEach(comment =>{
-                        
+                        //console.log(comment.user.username)
+
                         let postComment = document.createElement('p')
+                        let whoCommented = document.createElement('h3')
                         postComment.textContent = comment.text
+                        let names = comment.user.username 
+                        whoCommented.textContent = `${names} commented: `
+                        loadedCommentsDiv.appendChild(whoCommented)
                         loadedCommentsDiv.appendChild(postComment)
 
+                        if(comment.user.username === localStorage.getItem("username")){    
+                            let deleteComment = document.createElement("button")
+                            deleteComment.innerText = "Delete comment"
+                            loadedCommentsDiv.appendChild(deleteComment)
+                            
+                            deleteComment.addEventListener("click", () => {
+                                console.log('in click'+comment.id);
+                                fetch(`http://thesi.generalassemb.ly:8080/comment/${comment.id}`,{
+                                    method: "delete",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
+                                        'Accept': 'application/json'
+                                    }   
+                                })
+                                .then((response) => {
+                                    if(response.status==200){
+                                        location.reload();
+                                    }
+                                    else{
+                                        console.log('error in deleting comment');
+                                    }
+                                })
+                            })
+                        }
                     })
    
                 })
@@ -197,7 +227,6 @@ function loadPosts(){
                     return response.json()
                 })
                 .then( () => {
-
                     commentDiv.innerHTML= " "
                     commentDiv.style.marginTop = "3px"
                     commentDiv.innerText = `Comment added`
@@ -227,6 +256,7 @@ function loadLogin(logInButton){
         let helloUsername = `Welcome back, ${userName}`
         let welcomeBack = document.createElement("p")
         welcomeBack.textContent = helloUsername
+        welcomeBack.style.marginRight = "10px"
         document.querySelector("#login").appendChild(welcomeBack)
         
         let createNewPost = document.createElement("a")
@@ -240,7 +270,7 @@ function loadLogin(logInButton){
         logOutButton.innerText = "Log Out?"
         document.querySelector("#login").appendChild(logOutButton)
 
-        logOutButton.addEventListener("click", function(){
+        logOutButton.addEventListener("click", () =>{
             localStorage.clear()
             location.reload()
         })
