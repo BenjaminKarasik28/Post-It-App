@@ -181,3 +181,16 @@ button#icon-btn:hover {
   background-color: black;
   color: white;
 }
+
+div#err-row {
+  position: relative;
+  top: 20%;
+  left:40%;
+  width: 100%;
+}
+p#err-msg {
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  color: red;
+}
