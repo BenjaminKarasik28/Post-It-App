@@ -25,20 +25,33 @@ async function getProfileOnLoaded() {
   await getProfile().then(profile => {
     console.log(profile);
     //update html
-    document.getElementById("profile-username").innerText = profile.user.username;
-    document.getElementById("profile-email").setAttribute("value", profile.additionalEmail);
-    document.getElementById("profile-mobile").setAttribute("value", profile.mobile);
-    document.getElementById("profile-address").setAttribute("value", profile.address);
-    if (profile.additionalEmail.length > 0) {
-      document.getElementById("profile-email").readOnly = true;
-      document.getElementById("profile-address").readOnly = true;
+    if (profile.user !== undefined) {
+      console.log("profile received");
+      document.getElementById("profile-username").innerText = profile.user.username;
+      document.getElementById("profile-email").setAttribute("value", profile.additionalEmail);
+      document.getElementById("profile-mobile").setAttribute("value", profile.mobile);
+      document.getElementById("profile-address").setAttribute("value", profile.address);
+      if (profile.additionalEmail.length > 0) {
+        document.getElementById("profile-email").readOnly = true;
+        document.getElementById("profile-email").style.backgroundColor = "grey";
+        document.getElementById("profile-address").readOnly = true;
+        document.getElementById("profile-address").style.backgroundColor = "grey";
+      }
+      console.log(document.getElementById("profile-address").value);
+    } else {
+      console.log("profile not created yet");
+      document.getElementById("profile-username").innerText = localStorage.getItem("username");
     }
-    console.log(document.getElementById("profile-address").value);
   });
 }
 
 async function createOrUpdateProfileOnClick() {
-  updateProfileOnClick();
+  if (document.getElementById("profile-email").readOnly === true) {
+    updateProfileOnClick();
+  } else {
+    createProfileOnClick();
+  }
+
   await getProfileOnLoaded();
 }
 
@@ -46,4 +59,12 @@ async function updateProfileOnClick() {
   let newMobile = document.getElementById("profile-mobile").value;
   console.log("updating mobile: " + newMobile);
   await updateProfile(newMobile);
+}
+
+async function createProfileOnClick() {
+  let newEmail = document.getElementById("profile-email").value;
+  let newMobile = document.getElementById("profile-mobile").value;
+  let newAddress = document.getElementById("profile-address").value;
+  console.log(`creating profile: ${newEmail} -- ${newMobile} -- ${newAddress}`);
+  await createProfile(newEmail, newMobile, newAddress);
 }

@@ -49,16 +49,22 @@ async function createCommentOnClick() {
     });
     // put in html
     let newDiv = document.createElement("div");
-    newDiv.innerHTML =
-      "<div id='one-comment'>" +
-      "<p id='one-comment-content'>" +
-      comment +
-      "</p><p id='one-comment-meta'>comment id: " +
-      commentId +
-      " by " +
-      author +
-      "</p><button id='delete-comment' style='display: none;'>DELETE</button></div>";
-    document.getElementById("post-view-comments").append(newDiv);
+    newDiv.setAttribute("id", "one-comment");
+    let newComment = document.createElement("p");
+    newComment.setAttribute("id", "one-comment-content");
+    newComment.innerText = comment;
+    let newMeta = document.createElement("p");
+    newMeta.setAttribute("id", "one-comment-meta");
+    newMeta.innerText = "comment id: " + commentId + " by " + author;
+    let newBtn = document.createElement("button");
+    newBtn.setAttribute("id", "delete-comment");
+    newBtn.style.display = "block";
+    newBtn.innerText = "DELETE";
+    newBtn.addEventListener("click", deleteCommentButtonOnClick);
+    newDiv.appendChild(newComment);
+    newDiv.appendChild(newMeta);
+    newDiv.appendChild(newBtn);
+    document.getElementById("post-view-comments").appendChild(newDiv);
   } catch (err) {
     console.log(err);
   }
@@ -81,6 +87,13 @@ function switchToViewAPost(data) {
   let divComment = document.createElement("div");
   let commentForId = getCommentByPostId(id).then(response => {
     console.log(response);
+    response.sort(function(a, b) {
+      if (a.id > b.id){
+        return 1;
+      }else{
+        return -1;
+      }
+    })
     console.log(divComment);
     for (let i = 0; i < response.length; i++) {
       // withdraw data
@@ -197,8 +210,17 @@ async function createPostOnClick() {
   }
 }
 
-function deleteCommentButtonOnClick() {
-  alert("delete comment is not available for this moment");
+async function deleteCommentButtonOnClick(e) {
+  // console.log(e.target.parentNode);
+  let parentDiv = e.target.parentNode;
+  let commentid = parentDiv.children[1].innerText.split(" ")[2];
+  console.log(commentid);
+  let status = await deleteCommentByCommentId(commentid);
+  if (status.ok === true) {
+    parentDiv.parentNode.removeChild(parentDiv);
+  } else {
+    alert("fail to delete comment");
+  }
 }
 
 function deletePostButtonOnClick() {

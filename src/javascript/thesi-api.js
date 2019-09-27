@@ -44,18 +44,24 @@ async function getData(url, token = "") {
 
 async function deleteData(url, token = "") {
   var myHeaders = {};
-  myHeaders["Content-Type"] = "application/json";
+  // myHeaders["Content-Type"] = "application/json";
+  myHeaders["Content-Type"] = "text/plain";
   if (token !== "") {
-    console.log("post Data: token is " + token);
+    console.log("delete Data: token is " + token);
     myHeaders["Authorization"] = token;
   }
   let response = await fetch(url, {
     method: "DELETE",
     mode: "cors",
     cache: "no-cache",
-    headers: myHeaders
+    headers: myHeaders,
+  }).then(response => {
+    console.log("delete data response");
+    console.log(response);
+    return response;
   });
-  return await response.json();
+  return response;
+  
 }
 
 /**
@@ -86,8 +92,13 @@ async function signUp(email, pwd, username) {
     let response = await postData(url, data);
     console.log("signup response:" + JSON.stringify(response));
     if (response.token !== undefined) {
+      let username = response.username;
       let token = response.token;
+      console.log(username);
       console.log(token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("sessionToken", token);
+      console.log("username and token saved in local storage");
       return { token: token };
     } else {
       console.log("signup failed");
@@ -282,7 +293,27 @@ async function deletePostByPostId(postid) {
   }
 }
 
-async function createProfile(alterEmail, mobile, address){
+async function deleteCommentByCommentId(commentid) {
+  let token = localStorage.getItem("sessionToken");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/comment/" + commentid;
+  try {
+    console.log(`delete comment by comment id request: url(${url})`);
+    var response = await deleteData(url, "Bearer " + token);
+    console.log(response);
+    console.log("delete comment by comment id response:" + response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("delete comment by comment id finished");
+  }
+}
+
+async function createProfile(alterEmail, mobile, address) {
   let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
@@ -290,10 +321,10 @@ async function createProfile(alterEmail, mobile, address){
   }
   let url = "http://thesi.generalassemb.ly:8080/profile";
   let data = {
-      "additionalEmail" : alterEmail,
-      "mobile" : mobile,
-      "address" : address
-    }
+    additionalEmail: alterEmail,
+    mobile: mobile,
+    address: address,
+  };
   try {
     console.log(`create profile request: url(${url}) -- data (${JSON.stringify(data)})`);
     var response = await postData(url, data, "Bearer " + token).then(value => {
@@ -310,7 +341,7 @@ async function createProfile(alterEmail, mobile, address){
   }
 }
 
-async function getProfile(){
+async function getProfile() {
   let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
@@ -333,7 +364,7 @@ async function getProfile(){
   }
 }
 
-async function updateProfile(mobile){
+async function updateProfile(mobile) {
   let token = localStorage.getItem("sessionToken");
   console.log(token);
   if (token === null) {
@@ -341,8 +372,8 @@ async function updateProfile(mobile){
   }
   let url = "http://thesi.generalassemb.ly:8080/profile";
   let data = {
-      "mobile" : mobile,
-    }
+    mobile: mobile,
+  };
   try {
     console.log(`update profile request: url(${url}) -- data (${JSON.stringify(data)})`);
     var response = await postData(url, data, "Bearer " + token).then(value => {
@@ -366,6 +397,28 @@ function checkTokenAvailable() {
   return true;
 }
 
+async function getPostByUser() {
+  let token = localStorage.getItem("sessionToken");
+  console.log(token);
+  if (token === null) {
+    throw "Exception in createPost(): token not available";
+  }
+  let url = "http://thesi.generalassemb.ly:8080/user/post";
+  try {
+    console.log(`get post by user request: url(${url})`);
+    var response = await getData(url, "Bearer " + token).then(value => {
+      console.log(value);
+      console.log(typeof value);
+      return value;
+    });
+    console.log("get post by user response:" + JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("get post by user finished");
+  }
+}
 
 //test
 // let test = true;

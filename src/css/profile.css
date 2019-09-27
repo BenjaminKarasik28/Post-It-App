@@ -82,3 +82,25 @@ p#err-msg {
   text-align: center;
   color: red;
 }
+
+button#icon-btn {
+  float: center;
+  border-radius: 20px;
+  width: 75px;
+  font-size: 20px;
+}
+button#icon-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+button#logined-username{
+  background-color: white;
+  border-radius: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+button#logined-username:hover{
+  background-color: black;
+  color:white;
+}
