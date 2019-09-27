@@ -11,13 +11,36 @@ Thus, the application structure is defined to be a multi-page application, in wh
 
 [Pivotal Tracker link](https://www.pivotaltracker.com/n/projects/2400279)
 
-### Feature List
+Briefly, a user wants to:
+- Sign up / Log in (account management)
+- Create / View / Delete post (post)
+- Create / View / Delete comment (comment)
+- Create / View / Update profile (profile)
 
-A user needs to:
-- sign up / Log in
-- Create / View / Delete post
-- Create / View / Delete comment 
-- Create / View / Update comment
+### Function List
+
+###### Home page
+
+- login text area for login function / signup link directing to signup form
+- display all posts from server. Users can view and comment on the posts.
+
+###### Post page
+
+- login text area for login function / signup link directing to signup form
+- ** if user is not logged in, the page will show error message and hide other contents
+- two buttons serve as a switcher to view own posts, or create a new post
+- view all posts mode: list all posts sorted by post id, each post has an click listener connected to single view mode
+- view one post mode: show one post, comments if any, a comment input area, submit button, and a delete post button
+- create a post mode: enter title, post content, and submit
+
+###### Profile page
+
+- login text area for login function / signup link directing to signup form
+- ** if user is not logged in, the page will show error message and hide other contents
+- If profile is empty and not accessible from the server, the form will be editable
+- After entering info, create profile with API call
+- If profile is created, display in the page, email and address boxes are grey and read-only, mobile is white and editable for updating profile
+- After entering info, update profile with API call
 
 ### Wireframe
 
