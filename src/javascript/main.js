@@ -138,9 +138,17 @@ function loadPosts(){
             let commentDiv = document.createElement("div")
             let commentInput = document.createElement("input")
             let postCommentButton = document.createElement("button")
+
+            let loadedCommentsDiv = document.createElement("div")
+            div.appendChild(loadedCommentsDiv)
+
             
             seeAllCommentsButton.addEventListener('click', ()=>{
+              
+                loadedCommentsDiv.innerHTML = ""
+                //need to change this, ugly AF
                 
+
                 fetch(`http://thesi.generalassemb.ly:8080/post/${postID}/comment`,{
                     method: "get" 
                 })
@@ -148,11 +156,15 @@ function loadPosts(){
                     return response.json()
                 })
                 .then((comments)=>{
+                    
                     comments.forEach(comment =>{
+                        
                         let postComment = document.createElement('p')
                         postComment.textContent = comment.text
-                        div.appendChild(postComment)
+                        loadedCommentsDiv.appendChild(postComment)
+                        
                     })
+                    
                 })
             })
 
@@ -185,6 +197,7 @@ function loadPosts(){
                     return response.json()
                 })
                 .then( () => {
+
                     commentDiv.innerHTML= " "
                     commentDiv.style.marginTop = "3px"
                     commentDiv.innerText = `Comment added`
