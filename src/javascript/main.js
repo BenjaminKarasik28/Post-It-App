@@ -141,11 +141,11 @@ function loadPosts(){
 
             let loadedCommentsDiv = document.createElement("div")
             div.appendChild(loadedCommentsDiv)
-
+            
             
             seeAllCommentsButton.addEventListener('click', ()=>{
-              
-                loadedCommentsDiv.innerHTML = ""
+                
+                loadedCommentsDiv.innerText = ""
                 //need to change this, ugly AF
                 
 
@@ -162,9 +162,9 @@ function loadPosts(){
                         let postComment = document.createElement('p')
                         postComment.textContent = comment.text
                         loadedCommentsDiv.appendChild(postComment)
-                        
+
                     })
-                    
+   
                 })
             })
 
@@ -201,14 +201,11 @@ function loadPosts(){
                     commentDiv.innerHTML= " "
                     commentDiv.style.marginTop = "3px"
                     commentDiv.innerText = `Comment added`
-                })
-                                
+                })                
             })
-        
         })
     })
 }
-   
 /**
  * 
  */
@@ -222,6 +219,8 @@ function loadLogin(logInButton){
         logInButton.value = "Log in"
         document.querySelector("#login").appendChild(logInButton)
         
+        
+        
     }
     else {
         let userName = localStorage.getItem("email").split("@")[0]
@@ -234,6 +233,19 @@ function loadLogin(logInButton){
         createNewPost.textContent = "Create a new Post"
         createNewPost.href = "../html/post.html"
         document.querySelector("#login").appendChild(createNewPost)
+        
+        let headerDiv = document.createElement('div')
+        createNewPost.appendChild(headerDiv)
+
+
+        let logOutButton = document.createElement("button")
+        logOutButton.innerText = "Log Out?"
+        document.querySelector("#login").appendChild(logOutButton)
+
+        logOutButton.addEventListener("click", function(){
+            localStorage.clear()
+            location.reload()
+        })
     }
 
 }
