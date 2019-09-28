@@ -62,13 +62,6 @@ function loadUser(){
         else{
             
             document.querySelector("#incorrect").style.display = "inline"
-            // let loginError = document.createElement('p')
-            // loginError.innerText = " "
-            // loginError.textContent = "Your email or password is incorrect"
-            // loginError.style.color  = "red"
-            // document.querySelector("#login").appendChild(loginError)
-            
-            
         }
     }) 
 
@@ -152,13 +145,12 @@ function loadPosts(){
                     .then((comments)=>{
                         
                         comments.forEach(comment =>{
-                            //console.log(comment.user.username)
 
                             let postComment = document.createElement('p')
                             let whoCommented = document.createElement('h3')
                             postComment.textContent = comment.text
-                            let names = comment.user.username 
-                            whoCommented.textContent = `${names} commented: `
+                            let name = comment.user.username 
+                            whoCommented.textContent = `${name} commented: `
                             loadedCommentsDiv.appendChild(whoCommented)
                             loadedCommentsDiv.appendChild(postComment)
 
@@ -211,35 +203,43 @@ function loadPosts(){
                 commentDiv.appendChild(postCommentButton)
                 addCommentButton.style.display = "none"
             })
-
+            let commentAddedText = document.createElement('p')
+            
             postCommentButton.addEventListener('click', () =>{
-
+                
                 let newComment = commentInput.value
-                fetch(`http://thesi.generalassemb.ly:8080/comment/${postID}`, {
-                    method : "post",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
-                        'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    text: newComment
-                })
 
-                })
-                .then(response => {
-                    return response.json()
-                })
-                .then( () => {
-                    //commentDiv.innerHTML= " "
-                    let commentAddedText = document.createElement('p')
+                if(newComment.length !==0){
                     commentAddedText.textContent = `Comment added`
-                    commentDiv.style.marginTop = "3px"
-                    commentDiv.appendChild(commentAddedText)
-                    commentInput.value =" "
+                
+                    fetch(`http://thesi.generalassemb.ly:8080/comment/${postID}`, {
+                        method : "post",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
+                            'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: newComment
+                    })
 
-                    
-                })                
+                    })
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then( () => {
+                        
+                        
+                        commentDiv.style.marginTop = "3px"
+                        commentDiv.appendChild(commentAddedText)
+                        commentInput.value =""
+
+                    })                
+                }
+                else{
+                    commentAddedText.textContent = `Please enter a valid comment`
+                    commentDiv.appendChild(commentAddedText)
+                }
             })
         })
     })
@@ -251,6 +251,14 @@ function loadLogin(logInButton){
     if(!localStorage.getItem("sessionToken") ) { 
         let signupButton = document.createElement("button")
         signupButton.textContent = "Sign up"
+
+        signupButton.addEventListener("click", ()=>{
+            
+        })
+
+
+
+
         logInButton.textContent = "log in"
         document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">
             <input id = "password" type= "password" placeholder="password" >`
@@ -278,6 +286,7 @@ function loadLogin(logInButton){
         logOutButton.style.marginTop = "4px"
         logOutButton.innerText = "Log Out?"
         document.querySelector("#login").appendChild(logOutButton)
+
 
         logOutButton.addEventListener("click", () =>{
             localStorage.clear()
