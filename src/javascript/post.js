@@ -32,22 +32,27 @@ document.addEventListener("DOMContentLoaded", function(e) {
   document.getElementById("post-delete").addEventListener("click", deletePostButtonOnClick);
 });
 
-function switchToViewAPost(data) {
-  //stopPropogation
+/**
+ * switch to single post view mode
+ */
+function switchToViewAPost() {
+  document.getElementById("post-creation").style.display = "none";
+  document.getElementById("posts-list").style.display = "none";
+  document.getElementById("post-view").style.display = "block"; // enable only the single post mode
   // display post
-
+  // receive post info from clicked event
   var divOnePostView = this.children;
   var title = divOnePostView[0].innerText; //h3#list-post-title
   var content = divOnePostView[1].innerText; //p#list-post-content
   let meta = divOnePostView[2].innerText; //p#list-post-meta
-
+  // put in html
   document.getElementById("post-view-title").innerText = title;
   document.getElementById("post-view-content").innerText = content;
   document.getElementById("post-view-meta").innerText = meta;
   // display comment
+  document.getElementById("post-view-comments").innerHTML = ""; // clean existing content
+  // post id -> API get comment by post id
   let id = meta.split(" ")[2]; // post id: {id} ==> {id}
-  document.getElementById("post-view-comments").innerHTML = "";
-  let divComment = document.createElement("div");
   let commentForId = getCommentByPostId(id).then(response => {
     console.log(response);
     response.sort(function(a, b) {
@@ -57,7 +62,8 @@ function switchToViewAPost(data) {
         return -1;
       }
     });
-    console.log(divComment);
+    // put comment into html
+    let divComment = document.createElement("div");
     for (let i = 0; i < response.length; i++) {
       // withdraw data
       let dataI = response[i];
@@ -82,6 +88,7 @@ function switchToViewAPost(data) {
       newDiv.appendChild(newComment);
       newDiv.appendChild(newMeta);
       newDiv.appendChild(newDeleteButton);
+      // add listener
       newDiv.addEventListener("mouseenter", function() {
         if (author === localStorage.getItem("username")) {
           newDiv.querySelector('button[id="delete-comment"]').style.display = "block";
@@ -90,13 +97,10 @@ function switchToViewAPost(data) {
       newDiv.addEventListener("mouseleave", function() {
         newDiv.querySelector('button[id="delete-comment"]').style.display = "none";
       });
+      // append to DOM tree
       document.getElementById("post-view-comments").appendChild(newDiv);
     }
   });
-
-  document.getElementById("post-creation").style.display = "none";
-  document.getElementById("posts-list").style.display = "none";
-  document.getElementById("post-view").style.display = "block";
 }
 
 /**
