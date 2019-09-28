@@ -42,27 +42,27 @@ async function getData(url, token = "") {
   return await response.json();
 }
 
-async function deleteData(url, token = "") {
-  var myHeaders = {};
-  // myHeaders["Content-Type"] = "application/json";
-  myHeaders["Content-Type"] = "text/plain";
-  if (token !== "") {
-    console.log("delete Data: token is " + token);
-    myHeaders["Authorization"] = token;
-  }
-  let response = await fetch(url, {
-    method: "DELETE",
-    mode: "cors",
-    cache: "no-cache",
-    headers: myHeaders,
-  }).then(response => {
-    console.log("delete data response");
-    console.log(response);
-    return response;
-  });
-  return response;
+// async function deleteData(url, token = "") {
+//   var myHeaders = {};
+//   // myHeaders["Content-Type"] = "application/json";
+//   myHeaders["Content-Type"] = "text/plain";
+//   if (token !== "") {
+//     console.log("delete Data: token is " + token);
+//     myHeaders["Authorization"] = token;
+//   }
+//   let response = await fetch(url, {
+//     method: "DELETE",
+//     mode: "cors",
+//     cache: "no-cache",
+//     headers: myHeaders,
+//   }).then(response => {
+//     console.log("delete data response");
+//     console.log(response);
+//     return response;
+//   });
+//   return response;
   
-}
+//}
 
 /**
  * sign up functionality to post request with email, password, username, and receive token if succeeded
@@ -119,42 +119,42 @@ async function signUp(email, pwd, username) {
  * @param  {string} username [username for account]
  * @return {object} object [dictionary having token if login succeeds]
  */
-async function logIn(email, pwd) {
-  if (email === undefined || typeof email !== "string" || email === "") {
-    throw "Exception from signUp(): argument 'email' incorrect";
-  }
-  if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
-    throw "Exception from signUp(): argument 'pwd' incorrect";
-  }
-  try {
-    let url = "http://thesi.generalassemb.ly:8080/login";
-    let data = {
-      email: email,
-      password: pwd,
-    };
-    console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
-    let response = await postData(url, data);
-    console.log("logIn response:" + JSON.stringify(response));
-    if (response.token !== undefined) {
-      let username = response.username;
-      let token = response.token;
-      console.log(username);
-      console.log(token);
-      localStorage.setItem("username", username);
-      localStorage.setItem("sessionToken", token);
-      console.log("username and token saved in local storage");
-      return { token: token };
-    } else {
-      console.log("login failed");
-      console.log(response.message);
-      return {};
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    console.log("login finished");
-  }
-}
+// async function logIn(email, pwd) {
+//   if (email === undefined || typeof email !== "string" || email === "") {
+//     throw "Exception from signUp(): argument 'email' incorrect";
+//   }
+//   if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
+//     throw "Exception from signUp(): argument 'pwd' incorrect";
+//   }
+//   try {
+//     let url = "http://thesi.generalassemb.ly:8080/login";
+//     let data = {
+//       email: email,
+//       password: pwd,
+//     };
+//     console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
+//     let response = await postData(url, data);
+//     console.log("logIn response:" + JSON.stringify(response));
+//     if (response.token !== undefined) {
+//       let username = response.username;
+//       let token = response.token;
+//       console.log(username);
+//       console.log(token);
+//       localStorage.setItem("username", username);
+//       localStorage.setItem("sessionToken", token);
+//       console.log("username and token saved in local storage");
+//       return { token: token };
+//     } else {
+//       console.log("login failed");
+//       console.log(response.message);
+//       return {};
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     console.log("login finished");
+//   }
+// }
 
 async function listPostsQC() {
   let url = "http://thesi.generalassemb.ly:8080/post/list";

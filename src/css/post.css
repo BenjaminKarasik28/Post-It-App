@@ -3,7 +3,7 @@ body {
   width: 100vw;
   height: 100vh;
   font-family: "Muli", sans-serif;
-  background-color: hsl(43, 65%, 86%);
+  background-color: lavender;
 }
 
 #nav-bar {
@@ -57,7 +57,7 @@ button#post-switcher-create {
   width: 100%;
   background-color: black;
   border-radius: 20px;
-  color: wheat;
+  color: lavender;
   font-size: 30px;
 }
 button#post-switcher-view-posts:hover,
@@ -88,7 +88,7 @@ button#post-submit:hover {
 }
 
 div#post-view {
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 40px;
   padding: 40px;
 }
@@ -96,8 +96,8 @@ div#post-view {
 div#list-post {
   border-style: solid;
   border-radius: 10px;
-  border-color: wheat;
-  background-color: white;
+  border-color: lavender;
+  background-color: whitesmoke;
   padding: 10px;
 }
 
