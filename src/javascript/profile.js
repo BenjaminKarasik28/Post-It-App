@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     document.getElementById("form-logined").style.display = "none";
     document.getElementById("form-to-login").style.display = "block"; // not logged in, show the login form
     document.getElementById("err-row").style.display = "block"; // not logged in, show the error msg
-    document.getElementById("err-msg").innerText = "Please Log In"; // error msg
+    document.getElementById("err-msg").innerText = "Please Log In on "; // error msg
     return;
   }
 

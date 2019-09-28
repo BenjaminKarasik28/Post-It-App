@@ -79,11 +79,12 @@ div#err-row {
   position: relative;
   top: 20%;
   width: 100%;
+  left: 300px;
 }
 p#err-msg {
   font-size: 40px;
   font-weight: 900;
-  text-align: center;
+  /* text-align: center; */
   color: red;
 }
 
@@ -96,4 +97,11 @@ button#icon-btn {
 button#icon-btn:hover {
   background-color: black;
   color: white;
+}
+
+p#not-login-msg{
+  color:red;
+  margin-top:20px;
+  font-weight: 900;
+  font-size: 20px;
 }
