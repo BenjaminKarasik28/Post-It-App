@@ -98,10 +98,31 @@ button#icon-btn:hover {
   background-color: black;
   color: white;
 }
+button#err-btn {
+  float: center;
+  border-radius: 20px;
+  width: 150px;
+  font-size: 20px;
+}
+button#err-btn:hover {
+  background-color: black;
+  color: white;
+}
 
 p#not-login-msg{
   color:red;
   margin-top:20px;
   font-weight: 900;
   font-size: 20px;
+}
+
+button#log-out {
+  background-color: white;
+  border-radius: 20px;
+  font-size: 10px;
+  text-align: center;
+}
+button#log-out:hover {
+  background-color: black;
+  color: white;
 }

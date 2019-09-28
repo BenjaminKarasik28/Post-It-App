@@ -420,6 +420,10 @@ async function getPostByUser() {
   }
 }
 
+function logOut(){
+  localStorage.clear();
+}
+
 //test
 // let test = true;
 // if (test) {

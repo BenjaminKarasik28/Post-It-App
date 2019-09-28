@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     // hide login form and err msg, match username text in top right button
     document.getElementById("form-to-login").style.display = "none";
     document.getElementById("logined-username").innerText = localStorage.getItem("username");
-    document.getElementById("err-msg").style.display = "none";
+    document.getElementById("err-row").style.display = "none";
   } else {
     document.getElementById("form-logined").style.display = "none";
     document.getElementById("post-switcher").style.display = "none";
@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", function(e) {
   document.getElementById("post-submit").addEventListener("click", createPostOnClick);
   document.getElementById("comment-submit").addEventListener("click", createCommentOnClick);
   document.getElementById("post-delete").addEventListener("click", deletePostButtonOnClick);
+  document.getElementById("log-out").addEventListener("click", function(){
+    logOut();
+    window.location.reload();
+  });
 });
 
 /**

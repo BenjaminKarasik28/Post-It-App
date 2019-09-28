@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
   // Even listners
   document.getElementById("profile-edit-button").addEventListener("click", createOrUpdateProfileOnClick);
+  document.getElementById("log-out").addEventListener("click", function(){
+    logOut();
+    window.location.reload();
+  });
 });
 
 /**
