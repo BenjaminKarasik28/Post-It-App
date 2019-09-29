@@ -17,11 +17,11 @@ function loadUser(){
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-        email: emailInput,
-        password : passwordInput
-    })
+        },
+        body: JSON.stringify({
+            email: emailInput,
+            password : passwordInput
+         })
 
     })
     .then(response => {
@@ -44,6 +44,7 @@ function loadUser(){
         else{
             
             document.querySelector("#incorrect").style.display = "inline"
+            
         }
     }) 
 
@@ -90,24 +91,13 @@ function loadLogin(logInButton){
             //on successful call, display account created message
             //if password length too short or doesn't have special characters, display error message
             createAccountButton.addEventListener("click", ()=>{
-                
-                const specialChars = "!@#$%^&*(){}|?<>"
-                let count = 0
-                newPassword.value.split("").forEach((el)=>{
-                    if(specialChars.includes(el)){
-                        count++
-                    }
-                })
-                if(newPassword.value.length < 8 || count >0){
-                    document.querySelector("#invalid").style.display = "block"
-
-                }
-                else{
-                        fetch(`http://thesi.generalassemb.ly:8080/signup`, {
-                        method: "post",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
+                document.querySelector("#incorrect").style.display = "none"
+               
+                fetch(`http://thesi.generalassemb.ly:8080/signup`, {
+                    method: "post",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
                         email: newEmail.value,
@@ -120,8 +110,10 @@ function loadLogin(logInButton){
                         return response.json()
                     })
                     .then(() => {
+                        
                         document.querySelector("#login").innerHTML = ""
                         
+
                         let successMessage = document.createElement("h1")
                         successMessage.textContent = "Account successfully created"
                         successMessage.setAttribute("class", "success-message")
@@ -137,14 +129,16 @@ function loadLogin(logInButton){
                         })
                         
                     })
-                    .catch(() =>{
-                        document.querySelector("#login").innerHTML = "Username is taken"
+                    .catch((json) =>{
+                        console.log(json)
+                        document.querySelector("#login").innerHTML = ""
+                        document.querySelector("#taken").style.display = "block"
                     })
-                
-                }
-                  
+                    
+                    
+                        
+                })
             })
-        })
 
         logInButton.textContent = "log in"
         document.querySelector("#login").innerHTML = `<input id = "username" placeholder="email">

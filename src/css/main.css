@@ -18,7 +18,8 @@ input  {
     color: red;
     display: none
 }
-#invalid{
+#invalid,
+#taken{
   color: red;
   display: none;
   margin-right: 10px;

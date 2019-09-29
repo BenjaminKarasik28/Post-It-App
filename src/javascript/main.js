@@ -203,10 +203,10 @@ function loadPosts(){
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${localStorage.getItem("sessionToken")}`,
                             'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        text: newComment
-                    })
+                        },
+                        body: JSON.stringify({
+                            text: newComment
+                        })
 
                     })
                     .then(response => {
