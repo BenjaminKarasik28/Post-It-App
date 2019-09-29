@@ -50,7 +50,6 @@ function loadUser(){
 }
 /**
  * FUNCTION: Called on DOM load if user IS NOT signed in
- * 
  * creates a sign up button and an event listener
  * loads log in button
  */
@@ -59,8 +58,10 @@ function loadLogin(logInButton){
     let signupButton = document.createElement("button")
         signupButton.textContent = "Sign up"
 
+        //takes user to sign up page
         signupButton.addEventListener("click", ()=>{
-            
+            document.querySelector("#login").innerHTML = `<input id = "new-email" placeholder="Your email">
+            <input id = "new-password" type= "password" placeholder="password" >`
         })
 
         logInButton.textContent = "log in"
