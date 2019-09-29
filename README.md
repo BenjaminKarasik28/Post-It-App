@@ -137,7 +137,7 @@ Agile Development and Extreme Programming
 
 # TODO
 
-- test code
+- unit test
 
 # Test Cases
 
