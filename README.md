@@ -1,27 +1,3 @@
-Explanations of the technologies used.
-A couple of paragraphs about the general approach you took.
-Descriptions of any unsolved problems or major hurdles you had to overcome.
-A link to your planning documentation for how you broke down this project with deliverables and timelines.
-Installation instructions for any dependencies.
-A link to your user stories — who your users are
-
-# Approaches Taken:
-
-## 1. Create Mock Drafts of pages to meet business requirements
-    -- Developers outlined basic design of an MVP with paper/pencil
-    -- Used User Stories as a guide for an MVP
-    -- Developers made a preliminary list of Javasript functions and HTML elements necessary to achieve desired UI design
-    -- Made Wireframe designs for desired UI
-## 2. Pair-Programming, Agile methodlogies, and Extreme Programming Approaches
-    -- Constant, daily meetings between developers in person and over Slack
-    -- In person, pair programming achieved during User Story creation, app structure design, implementing API calls
-    -- Pair programming also achieved when developers had questions about partner code and explanation was required
-    -- Extreme Programming achieved with daily stand-ups, basic UI acceptance tests, pair programming, and pair negotiation
-    -- Agile methodlogies achieved with over 80 commits on Github and development of multiple, small aspects of MVP daily
-    -- Developers worked independently on certain aspects of seperate pages to acheive loose dependancy between files
-# 3. 
-
-
 # S1-Project-1
 
 Contributors: Benjamin Karasik & Qiming Chen
@@ -33,12 +9,39 @@ The application structure is defined to be multi-paged. Each Html, CSS, and Java
 Below is an outline of the project with links to our User Stories created in Pivotal Tracker, Requirements Outline, Feature List, and a preliminary sketch of our UI.
 
 
+# Approaches Taken:
+
+## 1. MVP/Initial Approaches
+    - Developers outlined basic design of an MVP with paper/pencil
+    - Created User Stories based on requirements given for the application
+    - Used User Stories as a guide for an MVP
+    - Developers made a preliminary list of Javasript functions and HTML elements necessary to achieve desired UI design
+    - Made Wireframe designs for desired UI
+    
+## 2. Pair-Programming, Agile methodlogies, and Extreme Programming Approaches
+    - Constant, daily meetings between developers in person and over Slack
+    - In person, pair programming achieved during User Story creation, app structure design, implementing API calls
+    - Pair programming also achieved when developers had questions about partner code and explanation was required
+    - Extreme Programming achieved with daily stand-ups, basic UI acceptance tests, pair programming, and pair negotiation
+    - Agile methodlogies achieved with over 80 commits on Github and development of multiple, small aspects of MVP daily
+    - Developers worked independently on certain aspects of seperate pages to acheive loose dependancy between files
+    
+## 3. Development Approaches
+    - Created a Github repository
+    - Worked on Master and seperate branches -- whenever a merge request was needed, developers met in person to achieve this
+    - Created seperate folders for HTML, CSS, and Javascript files
+    - Each web page had its own HTML, CSS, and Javascript file
+    - Mix of in person pair prorgamming where one person codes and the other guides, as well as independent programming
+    - Each coder led development for their own pages while the other would provide notes, feedback, help if needed  
+    - Both developers contribute to code evaluation and unit testing for front end
+
+
 # User Stories and Features 
 ### User Stories
 
 [Pivotal Tracker link](https://www.pivotaltracker.com/n/projects/2400279)
 
-Main Application Components:
+Main Application Components developed from User Stories and listed Requirements:
 
 - Sign up / Log in (account management)
 - Create / View posts (posts)
@@ -47,12 +50,14 @@ Main Application Components:
 
 ### Function List
 
-
-
 ###### Home page
 
-- login text area for login function / signup link directing to signup form
-- display all posts from server. Users can view and comment on the posts.
+- login text area for login function / signup button with to signup form when clicked
+- anchor tag leading to user posts page exists if user is logged in
+- display all posts from server. 
+- display button to see all comments per post and button to create comment
+- ** if user is not logged in, do not display those buttons
+- if successful sign up, success message and button to login displayed
 
 ###### Post page
 
@@ -99,7 +104,7 @@ Therefore, we defined the UI as
 ![alt text][profile_page]
 
 
-# Tech Stack, Methodologies and Principles
+# Tech Stack, Methodologies, and Principles
 
 ### Tech Stack
 
@@ -126,6 +131,36 @@ Agile Development and Extreme Programming
 - KISS (keep it simple, stupid)
 
 - DRY (don't repeat yourself) (modularity)
+
+
+# Obstacles & Future Changes
+
+- Increase runtime, O(n^3) occurs on home page
+
+- Improve function compartmentalization
+
+- Responsive UI
+
+- Different way of storing data (not localStorage)
+
+
+# Dependencies Required
+
+- Code editor for Javascript, HTML, CSS files (Virtual Studio Code recommended)
+
+- Live-Server to allow for hot reload whenever files are saved
+
+- Bootstrap for styling
+
+- Postman to test AJAX calls
+
+# Installation Instructions
+
+- Pull code
+
+- Use live-server to open in browser
+
+- Test! 
 
 ### Application Structure
 ![alt text][app_structure]
@@ -180,15 +215,6 @@ According to user stories, we can demo in this order:
 - Create / View / Delete comment (comment)
 
 - Create / View / Update profile (profile)
-
-
-A README.md file with:
-
-... Explanations of the technologies used.
-
-... A couple of paragraphs about the general approach you took.
-
-
 
 
 [home_page]: https://github.com/BenjaminKarasik28/S1-Project-1/blob/qc/image/home_page.png "home page 1"
