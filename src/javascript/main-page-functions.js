@@ -1,4 +1,9 @@
 /**
+* This file is used for code refactoring. Some functions called in main.js are declared here
+*/
+
+
+/**
  * FUNCTION: Called on button click
  * Performs POST api call to back end server
  * Sends html input values as body of fetch request
