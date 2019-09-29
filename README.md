@@ -101,7 +101,11 @@ Agile Development and Extreme Programming
 
 # Timeline:
 
+### requirement analysis and design
+
 - break down features and write user stories (2019/09/24 Tue)
+
+### code
 
 - define application structure (2019/09/24 Tue)
 
@@ -114,6 +118,34 @@ Agile Development and Extreme Programming
 - css styling (2019/09/26 Thr)
 
 - code cleaning up & documentation (2019/09/28 Sat ~ 2019/09/29 Sun)
+
+### test
+
+- test features (2019/09/29 Sun)
+
+### deploy
+
+- deploy on github host
+
+- presentation (2019/09/30 Mon)
+
+# TODO
+
+- test code
+
+# Test Cases
+
+According to user stories, we can demo in this order:
+
+- Sign up / Log in (account management)
+
+- Create / View / Delete post (post)
+
+- Create / View / Delete comment (comment)
+
+- Create / View / Update profile (profile)
+
+
 
 # Check List (Removed at the end of project)
 
