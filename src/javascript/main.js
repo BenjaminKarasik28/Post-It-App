@@ -127,6 +127,8 @@ function loadPosts(){
                             //if there's a match, create delete DOM elements and perform DELETE method on that ID with click event
                             if(comment.user.username === localStorage.getItem("username")){    
                                 let deleteComment = document.createElement("button")
+                                deleteComment.setAttribute("id", "delete-comment" )
+                               
                                 deleteComment.innerText = "Delete comment"
                                 loadedCommentsDiv.appendChild(deleteComment)
                                 

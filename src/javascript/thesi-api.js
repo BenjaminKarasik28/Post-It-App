@@ -127,7 +127,6 @@ async function signUp(email, pwd, username) {
  * @param  {string} pwd [password for account]
  * @return {object} object [dictionary having token if login succeeds]
  */
-<<<<<<< HEAD
 // async function logIn(email, pwd) {
 //   if (email === undefined || typeof email !== "string" || email === "") {
 //     throw "Exception from signUp(): argument 'email' incorrect";
@@ -164,46 +163,6 @@ async function signUp(email, pwd, username) {
 //     console.log("login finished");
 //   }
 // }
-=======
-async function logIn(email, pwd) {
-  if (email === undefined || typeof email !== "string" || email === "") {
-    throw "Exception from signUp(): argument 'email' incorrect";
-  }
-  if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
-    throw "Exception from signUp(): argument 'pwd' incorrect";
-  }
-  try {
-    let url = "http://thesi.generalassemb.ly:8080/login";
-    let data = {
-      email: email,
-      password: pwd,
-    };
-    console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
-    let response = await postData(url, data);
-    console.log("logIn response:" + JSON.stringify(response));
-    if (response.token !== undefined) {
-      // withdraw data
-      let username = response.username;
-      let token = response.token;
-      console.log(username);
-      console.log(token);
-      // save in temp storage
-      localStorage.setItem("username", username);
-      localStorage.setItem("sessionToken", token);
-      console.log("username and token saved in local storage");
-      return { token: token };
-    } else {
-      console.log("login failed");
-      console.log(response.message);
-      return {};
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    console.log("login finished");
-  }
-}
->>>>>>> 7ad88be94c884cd3cd8355ae2975673c6c7d462b
 
 /**
  * get request to withdraw all posts from API

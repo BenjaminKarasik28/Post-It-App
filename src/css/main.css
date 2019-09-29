@@ -20,7 +20,6 @@ input  {
 }
 
 #header {
-      
     float: right;
     
 }
@@ -33,6 +32,7 @@ input  {
     background-color: whitesmoke;
     padding: 5px;
     margin-bottom: 10px;
+    
     
  }
    
@@ -48,7 +48,8 @@ button{
     border-radius: 20px;
     color: lavender;
     font-size: 15px;
-    margin-top: 10px
+    margin-top: 10px;
+    margin-right: 10px
     
 }
 .create-new-post{
@@ -64,3 +65,15 @@ button{
    cursor:pointer;
 
 }
+
+button#delete-comment {
+    color: black;
+    margin-top: -70px;
+    background-color: red;
+    border-color: white;
+   
+  }
+  #login{
+    margin-top: -80px;
+  }
+  
