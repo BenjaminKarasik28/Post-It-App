@@ -83,7 +83,13 @@ Therefore, we defined the UI as
 
 Agile Development and Extreme Programming
 
-- fast iteration, early deliverables, pair programming, continuous integration
+- pair programming
+
+- fast iterations
+
+- continuous integration
+
+- early deliverable
 
 ### Principles
 
@@ -161,13 +167,13 @@ According to user stories, we can demo in this order:
 
 ~~Include separate HTML, CSS, and JavaScript files.~~
 
-Stick with the KISS (keep it simple, stupid) and DRY (don't repeat yourself) principles.
+~~Stick with the KISS (keep it simple, stupid) and DRY (don't repeat yourself) principles.~~
 
 User stories, documented in Pivotal Tracker, to show the work breakdown and project deliverables.
 
-The front-end application you built.
+~~The front-end application you built.~~
 
-A Git repository hosted on GitHub with a link to your hosted app.
+~~A Git repository hosted on GitHub with a link to your hosted app.~~
 
 ~~Around 50 (or more) commits on GitHub, dating back to the beginning of the project. (Commit early, commit often. Tell a story with your commits. Each message should give a clear idea of what you changed.)~~
 
