@@ -127,6 +127,7 @@ async function signUp(email, pwd, username) {
  * @param  {string} pwd [password for account]
  * @return {object} object [dictionary having token if login succeeds]
  */
+<<<<<<< HEAD
 // async function logIn(email, pwd) {
 //   if (email === undefined || typeof email !== "string" || email === "") {
 //     throw "Exception from signUp(): argument 'email' incorrect";
@@ -163,9 +164,50 @@ async function signUp(email, pwd, username) {
 //     console.log("login finished");
 //   }
 // }
+=======
+async function logIn(email, pwd) {
+  if (email === undefined || typeof email !== "string" || email === "") {
+    throw "Exception from signUp(): argument 'email' incorrect";
+  }
+  if (pwd === undefined || typeof pwd !== "string" || pwd === "") {
+    throw "Exception from signUp(): argument 'pwd' incorrect";
+  }
+  try {
+    let url = "http://thesi.generalassemb.ly:8080/login";
+    let data = {
+      email: email,
+      password: pwd,
+    };
+    console.log(`login request: url(${url}) data body (${JSON.stringify(data)})`);
+    let response = await postData(url, data);
+    console.log("logIn response:" + JSON.stringify(response));
+    if (response.token !== undefined) {
+      // withdraw data
+      let username = response.username;
+      let token = response.token;
+      console.log(username);
+      console.log(token);
+      // save in temp storage
+      localStorage.setItem("username", username);
+      localStorage.setItem("sessionToken", token);
+      console.log("username and token saved in local storage");
+      return { token: token };
+    } else {
+      console.log("login failed");
+      console.log(response.message);
+      return {};
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("login finished");
+  }
+}
+>>>>>>> 7ad88be94c884cd3cd8355ae2975673c6c7d462b
 
 /**
  * get request to withdraw all posts from API
+ * @returns {promise object} value [contains array of object for list posts]
  */
 async function listPostsQC() {
   let url = "http://thesi.generalassemb.ly:8080/post/list";
@@ -189,6 +231,7 @@ async function listPostsQC() {
  * post request to create a post
  * @param {string} title [post title]
  * @param {string} dscrpt [post description -- content]
+ * @returns {promise object} value [contains info for the newly created post]
  */
 async function createPost(title, dscrpt) {
   if (title === "" || dscrpt === "") {
@@ -225,6 +268,7 @@ async function createPost(title, dscrpt) {
  * post request to create comment
  * @param {string} postId [post id]
  * @param {string} commentContent [comment content]
+ * @returns {promise object} value [contains info for the newly created comment]
  */
 async function createComment(postId, commentContent) {
   if (commentContent === "") {
@@ -259,6 +303,7 @@ async function createComment(postId, commentContent) {
 /**
  * get request to withdraw comments for a post
  * @param {string} postId [the id for the target post]
+ * @param {promise object} value [contains array of objects of comments for the target post]
  */
 async function getCommentByPostId(postId) {
   let url = "http://thesi.generalassemb.ly:8080/post/" + postId + "/comment";
@@ -278,7 +323,8 @@ async function getCommentByPostId(postId) {
 }
 
 /**
- * get request to withdraw content for a user
+ * get request to withdraw content for a user (according to token[user auth key])
+ * @returns {promise object} value [contains array of objects of comments by the user]
  */
 async function getCommentByUser() {
   let token = localStorage.getItem("sessionToken");
@@ -304,8 +350,9 @@ async function getCommentByUser() {
 }
 
 /**
- * delete request to delete a post by id
+ * delete request to delete a post by id [server not available yet]
  * @param {string} postid [id for the target post]
+ * @returns {promise object} value [respone]
  */
 async function deletePostByPostId(postid) {
   let token = localStorage.getItem("sessionToken");
@@ -333,6 +380,7 @@ async function deletePostByPostId(postid) {
 /**
  * delete request to delete a comment
  * @param {string} commentid [id for the target comment]
+ * @param {promise object} response [object for response info -> check 'ok' attribute for execution]
  */
 async function deleteCommentByCommentId(commentid) {
   let token = localStorage.getItem("sessionToken");
@@ -359,6 +407,7 @@ async function deleteCommentByCommentId(commentid) {
  * @param {string} alterEmail [additional email]
  * @param {string} mobile [mobile number]
  * @param {string} address [address]
+ * @returns {promise object} value [object having the newly created profile]
  */
 async function createProfile(alterEmail, mobile, address) {
   let token = localStorage.getItem("sessionToken");
@@ -390,6 +439,7 @@ async function createProfile(alterEmail, mobile, address) {
 
 /**
  * get request to withdraw profile according to token (user auth key)
+ * @param {promise object} value [contains the profile info]
  */
 async function getProfile() {
   let token = localStorage.getItem("sessionToken");
@@ -417,6 +467,7 @@ async function getProfile() {
 /**
  * post request to profile according to token (user auth key)
  * @param {string} mobile [new mobile number]
+ * @param {promise object} value [contains the newly update profile]
  */
 async function updateProfile(mobile) {
   let token = localStorage.getItem("sessionToken");
@@ -446,6 +497,7 @@ async function updateProfile(mobile) {
 
 /**
  * check if token is in local storage
+ * @param {boolean} [true if token exists, otherwise false]
  */
 function checkTokenAvailable() {
   if (localStorage.getItem("sessionToken") === null) {
@@ -456,6 +508,7 @@ function checkTokenAvailable() {
 
 /**
  * get request to withdraw one user's post, according to token (user auth key)
+ * @returns {promise object} value [array of objects having posts]
  */
 async function getPostByUser() {
   let token = localStorage.getItem("sessionToken");

@@ -2,11 +2,7 @@ html,
 body {
   width: 100vw;
   height: 100vh;
-<<<<<<< HEAD
-  font-family: "Muli", sans-serif;
-=======
   font-family: "Montserrat", sans-serif;
->>>>>>> 3b80877d261a12fcdfdf8104626c4b74c34a539d
   background-color: lavender;
 }
 
