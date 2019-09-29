@@ -112,7 +112,7 @@ Therefore, we defined the UI as
 
 - CSS for styling and layout
 
-- Javascript for Listners for event handling, DOM manipulation, Communication with backend API, Ajax fetch
+- Vanilla Javascript & Listeners for event handling, DOM manipulation, Communication with the backend API, Ajax fetch calls
 
 ### Methodology
 
