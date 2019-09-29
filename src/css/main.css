@@ -18,6 +18,13 @@ input  {
     color: red;
     display: none
 }
+#invalid{
+  color: red;
+  display: none;
+  margin-right: 10px;
+  font-size: 15px
+}
+
 
 #header {
     float: right;

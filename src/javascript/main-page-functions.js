@@ -88,13 +88,18 @@ function loadLogin(logInButton){
 
             
             //on successful call, display account created message
-            //if password length too short display message
+            //if password length too short or doesn't have special characters, display error message
             createAccountButton.addEventListener("click", ()=>{
-                if(newPassword.value.length < 8){
-                    let error = document.createElement("h1")
-                    error.textContent = "Password must be at least 8 characters"
-                    error.style.color = "red"
-                    document.querySelector("#login").appendChild(error)
+                
+                const specialChars = "!@#$%^&*(){}|?<>"
+                let count = 0
+                newPassword.value.split("").forEach((el)=>{
+                    if(specialChars.includes(el)){
+                        count++
+                    }
+                })
+                if(newPassword.value.length < 8 || count >0){
+                    document.querySelector("#invalid").style.display = "block"
 
                 }
                 else{
