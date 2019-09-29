@@ -59,9 +59,86 @@ function loadLogin(logInButton){
         signupButton.textContent = "Sign up"
 
         //takes user to sign up page
+        //Create input and button DOM elements to create an acc where AJAX call is made
         signupButton.addEventListener("click", ()=>{
-            document.querySelector("#login").innerHTML = `<input id = "new-email" placeholder="Your email">
-            <input id = "new-password" type= "password" placeholder="password" >`
+            
+            document.querySelector("#login").innerHTML =""
+            
+            let newEmail = document.createElement("input")
+            newEmail.setAttribute("id", "new-email")
+            newEmail.placeholder = "Your email"
+
+            let newPassword = document.createElement("input")
+            newPassword.setAttribute("type", "password")
+            newPassword.setAttribute("id", "new-password")
+            newPassword.placeholder = "Create Password"
+           
+            let newUserName  = document.createElement("input")
+            newUserName.setAttribute("id", "new-username")
+            newUserName.placeholder = "Create Username"
+
+            let createAccountButton = document.createElement('button')
+            createAccountButton.textContent = "Create Account"
+            createAccountButton.setAttribute("id", "new-acc-create")
+            
+            document.querySelector("#login").appendChild(newEmail)
+            document.querySelector("#login").appendChild(newPassword)
+            document.querySelector("#login").appendChild(newUserName)
+            document.querySelector("#login").appendChild(createAccountButton)
+
+            
+            //on successful call, display account created message
+            //if password length too short display message
+            createAccountButton.addEventListener("click", ()=>{
+                if(newPassword.value.length < 8){
+                    let error = document.createElement("h1")
+                    error.textContent = "Password must be at least 8 characters"
+                    error.style.color = "red"
+                    document.querySelector("#login").appendChild(error)
+
+                }
+                else{
+                        fetch(`http://thesi.generalassemb.ly:8080/signup`, {
+                        method: "post",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: newEmail.value,
+                        password : newPassword.value,
+                        username: newUserName.value
+                    })
+                
+                    })
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(() => {
+                        document.querySelector("#login").innerHTML = ""
+                        
+                        let successMessage = document.createElement("h1")
+                        successMessage.textContent = "Account successfully created"
+                        successMessage.setAttribute("class", "success-message")
+                        document.querySelector("#login").appendChild(successMessage)
+
+                        let successMessageButton = document.createElement("button")
+                        successMessageButton.textContent = "Login?"
+                        successMessageButton.setAttribute("class", "success-message")
+                        successMessage.appendChild(successMessageButton)
+
+                        successMessageButton.addEventListener("click", ()=>{
+                            location.reload()
+                        })
+                        
+                    })
+                    .catch(() =>{
+                        document.querySelector("#login").innerHTML = "Username is taken"
+                    })
+                
+                }
+                  
+            })
         })
 
         logInButton.textContent = "log in"

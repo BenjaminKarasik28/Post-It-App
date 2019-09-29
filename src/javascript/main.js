@@ -36,6 +36,9 @@ function loadPosts(){
     })
     //AJAX call to return array of posts
     .then(posts =>{
+        //limit to 25 posts on the page
+        posts = posts.slice(0,25)
+
         posts.forEach((post)=>{
             
             //get post id from AJAX call and send it to localStorage
