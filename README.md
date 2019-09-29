@@ -1,23 +1,53 @@
+Explanations of the technologies used.
+A couple of paragraphs about the general approach you took.
+Descriptions of any unsolved problems or major hurdles you had to overcome.
+A link to your planning documentation for how you broke down this project with deliverables and timelines.
+Installation instructions for any dependencies.
+A link to your user stories — who your users are
+
+# Approaches Taken:
+
+## 1. Create Mock Drafts of pages to meet business requirements
+    -- Developers outlined basic design of an MVP with paper/pencil
+    -- Used User Stories as a guide for an MVP
+    -- Developers made a preliminary list of Javasript functions and HTML elements necessary to achieve desired UI design
+    -- Made Wireframe designs for desired UI
+## 2. Pair-Programming, Agile methodlogies, and Extreme Programming Approaches
+    -- Constant, daily meetings between developers in person and over Slack
+    -- In person, pair programming achieved during User Story creation, app structure design, implementing API calls
+    -- Pair programming also achieved when developers had questions about partner code and explanation was required
+    -- Extreme Programming achieved with daily stand-ups, basic UI acceptance tests, pair programming, and pair negotiation
+    -- Agile methodlogies achieved with over 80 commits on Github and development of multiple, small aspects of MVP daily
+    -- Developers worked independently on certain aspects of seperate pages to acheive loose dependancy between files
+# 3. 
+
+
 # S1-Project-1
 
-Contributor: Benjamin Karasik, Qiming Chen
+Contributors: Benjamin Karasik & Qiming Chen
 
-This project aims to build a reddit-like front-end application. This app is expected to serve as a forum for users to signup/login their accounts, create and manage posts, comments, and profiles, and this brings up the user stories, features list, and furthermore a sketch of UI based on the features.
+Post-It functions as a Reddit-like front-end application. It is expected to serve as a forum for users to create accounts, login to their accounts, and create and manage posts, comments, and their profile.
 
-Thus, the application structure is defined to be a multi-page application, in which multiple webpages are integrated to construct this app, and each html / css / javascript scripts are modularized to respond for only one page. 
+The application structure is defined to be multi-paged. Each Html, CSS, and Javascript file is divided to serve only one page at a time. 
+
+Below is an outline of the project with links to our User Stories created in Pivotal Tracker, Requirements Outline, Feature List, and a preliminary sketch of our UI.
+
 
 # User Stories and Features 
 ### User Stories
 
 [Pivotal Tracker link](https://www.pivotaltracker.com/n/projects/2400279)
 
-Briefly, a user wants to:
+Main Application Components:
+
 - Sign up / Log in (account management)
-- Create / View / Delete post (post)
-- Create / View / Delete comment (comment)
+- Create / View posts (posts)
+- Create / View / Delete comments (comments)
 - Create / View / Update profile (profile)
 
 ### Function List
+
+
 
 ###### Home page
 
@@ -152,46 +182,13 @@ According to user stories, we can demo in this order:
 - Create / View / Update profile (profile)
 
 
-
-# Check List (Removed at the end of project)
-
-~~Have placeholders for user login and sign-up (i.e., create basic HTML forms).~~
-
-~~Have a user directed to a home page that contains all posts once they sign in.~~
-
-~~Allow a user to create and delete their own posts, as well as view and comment on others’ posts.~~
-
-~~Add front-end Ajax calls to consume the given APIs.~~
-
-~~Use JavaScript for DOM manipulation.~~
-
-~~Include separate HTML, CSS, and JavaScript files.~~
-
-~~Stick with the KISS (keep it simple, stupid) and DRY (don't repeat yourself) principles.~~
-
-User stories, documented in Pivotal Tracker, to show the work breakdown and project deliverables.
-
-~~The front-end application you built.~~
-
-~~A Git repository hosted on GitHub with a link to your hosted app.~~
-
-~~Around 50 (or more) commits on GitHub, dating back to the beginning of the project. (Commit early, commit often. Tell a story with your commits. Each message should give a clear idea of what you changed.)~~
-
 A README.md file with:
 
 ... Explanations of the technologies used.
 
 ... A couple of paragraphs about the general approach you took.
 
-... ~~Descriptions of any unsolved problems or major hurdles you had to overcome.~~
 
-... ~~A link to your planning documentation for how you broke down this project with deliverables and timelines.~~
-
-Installation instructions for any dependencies.
-
-~~A link to your user stories — who your users are, what they want, and why.~~
-
-~~A link to your wireframes — sketches of major views or interfaces in your application.~~
 
 
 [home_page]: https://github.com/BenjaminKarasik28/S1-Project-1/blob/qc/image/home_page.png "home page 1"
