@@ -18,7 +18,7 @@ Below is an outline of the project with links to our User Stories created in Piv
     - Developers made a preliminary list of Javasript functions and HTML elements necessary to achieve desired UI design
     - Made Wireframe designs for desired UI
     
-## 2. Pair-Programming, Agile methodlogies, and Extreme Programming Approaches
+## 2. Pair-Programming, Agile methodologies, and Extreme Programming Approaches
     - Constant, daily meetings between developers in person and over Slack
     - In person, pair programming achieved during User Story creation, app structure design, implementing API calls
     - Pair programming also achieved when developers had questions about partner code and explanation was required
