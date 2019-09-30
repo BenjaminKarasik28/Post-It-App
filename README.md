@@ -143,6 +143,10 @@ Agile Development and Extreme Programming
 
 - Different way of storing data (not localStorage)
 
+- Sign up is wonky, is supposed to display error message but does not
+
+- Eliminate alert() completely for a better UX
+
 
 # Dependencies Required
 
