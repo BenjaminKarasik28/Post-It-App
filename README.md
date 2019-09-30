@@ -196,7 +196,7 @@ Agile Development and Extreme Programming
 
 ### deploy
 
-- deploy on github host
+- deploy on github host (2019/09/29 Sun)
 
 - presentation (2019/09/30 Mon)
 
