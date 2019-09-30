@@ -30,8 +30,8 @@ Below is an outline of the project with links to our User Stories created in Piv
     - Created a Github repository
     - Worked on Master and seperate branches -- whenever a merge request was needed, developers met in person to achieve this
     - Created seperate folders for HTML, CSS, and Javascript files
-    - Each web page had its own HTML, CSS, and Javascript file
-    - Mix of in person pair prorgamming where one person codes and the other guides, as well as independent programming
+    - Each web page has its own HTML, CSS, and Javascript file
+    - Mix of in person pair programming where one person codes and the other guides, as well as independent programming
     - Each coder led development for their own pages while the other would provide notes, feedback, help if needed  
     - Both developers contribute to code evaluation and unit testing for front end
 
