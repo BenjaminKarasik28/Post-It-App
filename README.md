@@ -200,10 +200,6 @@ Agile Development and Extreme Programming
 
 - presentation (2019/09/30 Mon)
 
-# TODO
-
-- unit test
-
 # Test Cases
 
 According to user stories, we can demo in this order:
