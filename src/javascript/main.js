@@ -37,6 +37,9 @@ function loadPosts(){
     //AJAX call to return array of posts
     .then(posts =>{
         //limit to 25 posts on the page
+        //and display newest posts
+        posts.reverse()
+        console.log(posts)
         posts = posts.slice(0,25)
 
         posts.forEach((post)=>{
